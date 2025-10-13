@@ -1,7 +1,6 @@
-```mermaid
+```HealthApp
 graph TD
-    A[Inicio] --> B{Decisión?}
-    B -->|Sí| C[Acción 1]
-    B -->|No| D[Acción 2]
-    C --> E[Fin]
-    D --> E
+    A[USUARIO] --> B{Envia Formulasio}
+    B -->|Sí| C[Base de Datos]
+    B -->|No| E[Front End]
+    C --> E
