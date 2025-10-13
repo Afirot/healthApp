@@ -1,6 +1,6 @@
 ```mermaid
 graph TD
-    A[USUARIO] --> B{Envia Formulasio}
+    A[USUARIO] --> B{Envia Formulario}
     B -->|Sí| C[Base de Datos]
     B -->|No| D[Front End]
-    C -->|Toma datos| D
+    C ---|Toma datos| D
