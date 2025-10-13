@@ -6,7 +6,7 @@ graph TD
     H -->|Peso<br>Altura<br>UserID| D[Formulario]
     D --> E{Calcula IMC}
     E-->|Peso<br>Altura<br>Dia<br>IMC| F[Data Base]
-    F-->G{Calcula<br>Maximo/Minimo de peso historico}
+    F-->G{Calcula<br>Maximo/Minimo de peso historico y genera las graficas de datos}
     G--> C
     B---|Autenticacion|F
     A-->R{Registrarse}
