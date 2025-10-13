@@ -1,6 +1,8 @@
 ```mermaid
 graph TD
-    A[USUARIO] --> B{Envia Formulario}
-    B -->|Sí| C[Base de Datos]
-    B -->|No| D[Front End]
-    C ---|Toma datos| D
+    A[USUARIO] --> B[Graficas]
+    A -->|Peso<br>Altura| C[Formulario]
+    C --> D{Calcula IMC}
+    D-->|Peso<br>Altura<br>Dia<br>IMC| E[Data Base]
+    E--> B
+
