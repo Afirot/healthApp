@@ -36,6 +36,7 @@ try {
 
 <body>
     <div>
+        <script>alert('Bienvenido usuario')</script>
         <form method="post" action="insertData.php">
             <label>Peso (kg):</label><input type="number" name="peso"/>
             <label>Altura (cm):</label><input type="number" name="altura"/>
