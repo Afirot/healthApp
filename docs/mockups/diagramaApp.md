@@ -12,5 +12,5 @@ graph TD
     G--> C
     A-->R{Registrarse}
     R-->|Usuario<br>Hash<br>Nombre<br>Apellidos<br>FechaNacimiento<br>UserID|F
-    F --> E(End)
+    C --> E(End)
 
