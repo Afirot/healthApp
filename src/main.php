@@ -3,23 +3,20 @@ session_start();
 
 try {
     include 'functions.php';
+    include "class.php";
 
     $conexion = db_conection('localhost', 'db_users', "wdwBSz4uwFblFQ2C", 'health_app');
     if (!isset($_SESSION['islogged']) || !$_SESSION['islogged'] === true) {
         header('Location: index.php');
         exit;
     }
-    $idUsuario = $_SESSION['userid'];
-
-    $consulta = 'SELECT username FROM users WHERE userid = :id LIMIT 1';
-    $resultado = $conexion->prepare($consulta);
-    $resultado->bindParam(':id', $idUsuario);
-    $resultado->execute();
-    $conexion = '';
+    $paciente = new Paciente();
+    
 } catch (Throwable $ex) {
-    error_log("Error: " . $ex->getMessage());
+    /*error_log("Error: " . $ex->getMessage());
     header('Location: error500.php');
-    exit();
+    exit();*/
+    echo $ex->getMessage();
 }
 ?>
 <!--Your code-->
@@ -36,7 +33,7 @@ try {
 
 <body>
     <div>
-        <script>alert('Bienvenido usuario')</script>
+        <?php echo $paciente->welcome(); ?>
         <form method="post" action="insertData.php">
             <label>Peso (kg):</label><input type="number" name="peso"/>
             <label>Altura (cm):</label><input type="number" name="altura"/>
