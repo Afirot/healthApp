@@ -30,5 +30,8 @@ try {
             </div>
             <button type="submit">Login</button>
         </form>
+        <form class="registro" action="panelRegistro.php" method="post">
+            <button type="submit">Haz click para registrarte</button>
+        </form>
     </body>
 </html>
