@@ -24,7 +24,7 @@ class Paciente
 
     public function welcome()
     {
-        return "<script>alert('Bienvenido $this->nombre $this->apellidos')</script>";
+        return "<script>alert('Bienvenido " . htmlspecialchars($this->nombre) . " " . htmlspecialchars($this->apellidos) . "')</script>";
     }
 
     public function send_data($__peso, $__altura){
@@ -137,3 +137,4 @@ class Paciente
         }
     }
 ?>
+
