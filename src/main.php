@@ -40,6 +40,30 @@ try {
             <input type="submit"/>
         </form>
     </div>
+    <div class="grafica">
+        <?php
+        $datos = $paciente->extract_data();
+        
+        $tabla = '<table>';
+        $tabla .= '<tr>';
+        $tabla .= '<th>Peso</th>';
+        $tabla .= '<th>Altura</th>';
+        $tabla .= '<th>IMC</th>';
+        $tabla .= '<th>Fecha</th>';
+        $tabla .= '</tr>';
+        foreach ($datos as $linea) {
+            $imc = ($linea['peso'] / $linea['altura']) ** 2;
+            $tabla .= '<tr>';
+            $tabla .= '<td>' . number_format($linea['peso'], 2, ',') . ' Kg</td>';
+            $tabla .= '<td>' . $linea['altura'] . ' cm</td>';
+            $tabla .= '<td>' . number_format($imc, 2) . '</td>';
+            $tabla .= '<td>' . $linea['fecha'] . '</td>';
+            $tabla .= '</tr>';
+        }
+        $tabla .= '<table>';
+        echo $tabla;
+        ?>
+    </div>
 </body>
 
 </html>
