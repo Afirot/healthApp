@@ -2,7 +2,7 @@
 try {
     session_start();
     if (isset($_SESSION['islogged'])) {
-        header('location: home.php');
+        header('location: main.php');
     }
 } catch (Throwable $ex) {
     error_log("Error: " . $ex->getMessage());
