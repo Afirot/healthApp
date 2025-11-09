@@ -114,47 +114,221 @@ class Paciente
     }
 
 }
+class registro{
+    private $usuario;
+    private $pass;
+    private $pass2;
+    private $nombre;
+    private $apellidos;
+    private $fechaNacimiento;
+    
+    public function __construct($usuario_, $nombre_, $apellidos_, $fechaNacimiento_,
+                                $pass_, $pass2_){
+        $this->usuario=$usuario_;
+        $this->pass=$pass_;
+        $this->pass2=$pass2_;
+        $this->nombre=$nombre_;
+        $this->apellidos=$apellidos_;
+        $this->fechaNacimiento=$fechaNacimiento_;
     }
-
-    class registro{
-        private $usuario;
-        public $pass;
-        public $pass2;
-        private function __construct($usuario_,$pass_,$pass2_) {
-            $registro->usuario=$usuario_;
-            $registro->pass=$pass_;
-            $registro->pass2=$pass2_;
+    function insertarUsuario(){
+        $dsn = 'mysql:host=localhost;dbname=health_app';
+        $usuario = 'inserter_user';
+        $clave = 'UuPZONibjAC0fJgj';
+        
+        try {
+            $conexion = new PDO($dsn,$usuario,$clave);
+            $consulta = 'INSERT INTO (username,hash,nombre,apellidos,
+                         fecha_nacimiento)
+                         VALUES(:username,:hash,:nombre,:apellidos,
+                         :fechaNacimiento)';
+            $resultado = $conexion->prepare($consulta);
+            
+            $hash = password_hash($this->pass, PASSWORD_BCRYPT);
+            
+            $resultado->bindParam(':username', $this->usuario);
+            $resultado->bindParam(':hash', $hash);
+            $resultado->bindParam(':nombre', $this->nombre);
+            $resultado->bindParam(':apellidos', $this->apellidos);
+            $resultado->bindParam(':fechaNacimiento', $this->apellidos);
+            
+            header("Location: index.php?registro=exitoso");
+            exit;
+        }catch (PDOException $exception){
+            echo "Fallo de conexión ", $exception->getmessage();
         }
-        function comprobarPass(){
-            if($registro->pass != $registro->pass2){
-                while(True){
-                    $salida='<html>
+    }
+    function comprobarUsuario(){
+        $dsn = "mysql:host=localhost;dbname=health_app";
+        $usuario = "inserter_user";
+        $clave = "UuPZONibjAC0fJgj";
+        
+        try {
+            $conexion = new PDO($dsn,$usuario,$clave);
+            $consulta = 'SELECT *
+                         FROM users
+                         WHERE username = ?';
+            $resultado = $conexion->prepare($consulta);
+            $resultado->bindParam(1, $this->usuario, PDO::PARAM_STR);
+            $resultado->execute();
+
+            if ($resultado->rowCount() > 0){
+                $salida='<!DOCTYPE html>
+                         <html>
                              <head>
-                             <meta charset="UTF-8">
-                                <!--<link rel="stylesheet" href="css/styles.css">-->
-                                <title></title>
+                                 <meta charset="UTF-8">
+                                 <!--<link rel="stylesheet" href="css/styles.css">-->
+                                 <title></title>
                              </head>
                              <body>
-                                 <form class="registro" action="resgistrarUsuario.php" method="post">
-                                     <h1>Login</h1>
+                                 <form class="registro" action="registrarUsuario.php" method="post">
+                                     <h1>Registro</h1>
+                                     <br>
+                                     <h1>El usuario introducido ya existe, por favor introduzca uno distinto</h1>
+                                     <br>
                                      <label>Usuario</label>
                                      <div>
-                                        <input type="text" name="nombre" value="" placeholder="Username"/>
+                                         <input type="text" name="usuario" id="usuario" value=""
+                                                title="El nombre del usuario debe contener solo letras 
+                                                       y números"
+                                                pattern="[A-Za-z0-9]{2,32}"
+                                                required/>
                                      </div>
-                                         <label>Contraseña</label>
+                                     <br>
+                                     <label>Nombre</label>
                                      <div>
-                                         <input type="password" name="pass" value="" placeholder="Password"/>
+                                          <input type="text" name="nombre" id="nombre" value=""
+                                                 title="El nombre debe contener solo letras"
+                                                 pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ]{2,32}" title="" required/>
                                      </div>
-                                    
-                                     <label>Repite la contraseña</label>                                    
+                                     <br>
+                                     <label>Apellidos</label>
                                      <div>
-                                        <input type="password" name="pass2" value="" placeholder="Password"/>
-                                     </div>';
-                    return $salida;
-                }
+                                          <input type="text" name="apellidos" id="apellidos" value=""
+                                                 title="Los apellidos deben contener solo letras"
+                                                 pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{5,32}"
+                                                 required/>
+                                     </div>
+                                     <br>
+                                     <label>Fecha de Nacimiento</label>
+                                     <div>
+                                          <input type="date" name="fechaNacimiento" id="fechaNacimiento"
+                                                 value=""
+                                                 title="La fecha de nacimiento del paciente es
+                                                        obligatorio"
+                                                 required/>
+                                     </div>
+                                     <br>
+                                     <label>Contraseña</label>
+                                     <div>
+                                         <input type="password" name="pass" id="pass"
+                                                pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
+                                                value=""
+                                                title="La contraseña debe contener mínimo 8 caracteres,
+                                                       al menos una letra mayúscula y un caracter
+                                                       especial"
+                                                required/>
+                                     </div>
+                                     <br>
+                                     <label>Repite la contraseña</label>
+                                     <div>
+                                         <input type="password" name="pass2" id="pass2"
+                                                pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
+                                                value=""
+                                                title="Debe introducir la contraseña de nuevo
+                                                       obligatoriamente"
+                                                required/>
+                                     </div>
+                                     <br>
+                                     <button type="submit">Registrarse</button>
+                                 </form>
+                             </body>
+                         </html>';
+                echo $salida;
+            } else {
+                $this->insertarUsuario();
             }
+        }catch (PDOException $exception){
+            echo "Fallo de conexión ", $exception->getmessage();
         }
     }
-?>
-
-
+    
+    function comprobarPass(){
+        if($this->pass !== $this->pass2){
+            $salida='<!DOCTYPE html>
+                     <html>
+                         <head>
+                             <meta charset="UTF-8">
+                             <link rel="stylesheet" href="css/paneles.css">
+                             <title></title>
+                         </head>
+                         <body>
+                             <form class="registro" action="registrarUsuario.php" method="post">
+                                 <h1>Registro</h1>
+                                 <br>
+                                 <label>Usuario</label>
+                                 <div>
+                                     <input type="text" name="usuario" id="usuario" value=""
+                                            title="El nombre del usuario debe contener solo letras 
+                                                   y números"
+                                            pattern="[A-Za-z0-9]{2,32}"
+                                            required/>
+                                 </div>
+                                 <br>
+                                 <label>Nombre</label>
+                                 <div>
+                                      <input type="text" name="nombre" id="nombre" value=""
+                                             title="El nombre debe contener solo letras"
+                                             pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ]{2,32}" title="" required/>
+                                 </div>
+                                 <br>
+                                 <label>Apellidos</label>
+                                 <div>
+                                      <input type="text" name="apellidos" id="apellidos" value=""
+                                             title="Los apellidos deben contener solo letras"
+                                             pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{5,32}"
+                                             required/>
+                                 </div>
+                                 <br>
+                                 <label>Fecha de Nacimiento</label>
+                                 <div>
+                                      <input type="date" name="fechaNacimiento" id="fechaNacimiento"
+                                             value=""
+                                             title="La fecha de nacimiento del paciente es
+                                                    obligatorio"
+                                             required/>
+                                 </div>
+                                 <br>
+                                 <h1>Las contraseñas introducidas no son iguales, por favor introduzcalas de nuevo</h1>
+                                 <br>
+                                 <label>Contraseña</label>
+                                 <div>
+                                     <input type="password" name="pass" id="pass"
+                                            pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
+                                            value=""
+                                            title="La contraseña debe contener mínimo 8 caracteres,
+                                                   al menos una letra mayúscula y un caracter
+                                                   especial"
+                                            required/>
+                                 </div>
+                                 <br>
+                                 <label>Repite la contraseña</label>
+                                 <div>
+                                     <input type="password" name="pass2" id="pass2"
+                                            pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
+                                            value=""
+                                            title="Debe introducir la contraseña de nuevo
+                                                   obligatoriamente"
+                                            required/>
+                                 </div>
+                                 <br>
+                                 <button type="submit">Registrarse</button>
+                             </form>
+                         </body>
+                     </html>';
+            echo $salida;
+        }else{
+            $this->comprobarUsuario();
+        }
+    }
+}
