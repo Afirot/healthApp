@@ -148,8 +148,8 @@ class registro{
     }
     function comprobarUsuario(){
         $dsn = "mysql:host=localhost;dbname=health_app";
-        $usuario = "inserter_user";
-        $clave = "UuPZONibjAC0fJgj";
+        $usuario = "db_users";
+        $clave = "wdwBSz4uwFblFQ2C";
         
         try {
             $conexion = new PDO($dsn,$usuario,$clave);
@@ -320,6 +320,7 @@ class registro{
         }
     }
 }
+
 
 
 
