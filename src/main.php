@@ -35,35 +35,58 @@ try {
     <div>
         <?php echo $paciente->welcome(); ?>
         <form method="post" action="insertData.php">
-            <label>Peso (kg):</label><input type="number" name="peso"/>
-            <label>Altura (cm):</label><input type="number" name="altura"/>
-            <input type="submit"/>
+            <label>Peso (kg):</label><input type="number" name="peso" />
+            <label>Altura (cm):</label><input type="number" name="altura" />
+            <input type="submit" />
         </form>
     </div>
-    <div class="grafica">
-        <?php
-        $datos = $paciente->extract_data();
-        
-        $tabla = '<table>';
-        $tabla .= '<tr>';
-        $tabla .= '<th>Peso</th>';
-        $tabla .= '<th>Altura</th>';
-        $tabla .= '<th>IMC</th>';
-        $tabla .= '<th>Fecha</th>';
-        $tabla .= '</tr>';
-        foreach ($datos as $linea) {
-            $imc = ($linea['peso'] / $linea['altura']) ** 2;
-            $tabla .= '<tr>';
-            $tabla .= '<td>' . number_format($linea['peso'], 2, ',') . ' Kg</td>';
-            $tabla .= '<td>' . $linea['altura'] . ' cm</td>';
-            $tabla .= '<td>' . number_format($imc, 2) . '</td>';
-            $tabla .= '<td>' . $linea['fecha'] . '</td>';
-            $tabla .= '</tr>';
-        }
-        $tabla .= '<table>';
-        echo $tabla;
-        ?>
-    </div>
+    <canvas id="grafica" width="400" height="200"></canvas>
+    <script>
+        fetch('datos_usuario.php')
+            .then(response => response.json())
+            .then(data => {
+                const fecha = data.map(item => item.fecha);
+                const peso = data.map(item => item.peso);
+                const altura = data.map(item => item.altura);
+                const imc = data.map(item => item.imc);
+
+                new Chart(document.getElementById('grafica'), {
+                    type: 'bar',
+                    data: {
+                        labels: fecha,
+                        datasets: [
+                            {
+                                label: 'Peso',
+                                data: peso,
+                                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Altura',
+                                data: altura,
+                                backgroundColor: 'rgba(227, 17, 17, 0.6)',
+                                borderColor: 'rgba(227, 17, 17, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'IMC',
+                                data: imc,
+                                backgroundColor: 'rgba(232, 214, 15, 0.6)',
+                                borderColor: 'rgba(243, 223, 3, 0.91)',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        scales: {
+                            y: { beginAtZero: true }
+                        }
+                    }
+                });
+            });
+    </script>
 </body>
+
 
 </html>
