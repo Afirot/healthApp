@@ -53,7 +53,7 @@ class Paciente
             return false;
         }
     }
-public function extract_data()
+    public function extract_data()
     {
         $fecha = date('Y-m-d');
 
@@ -66,10 +66,23 @@ public function extract_data()
         $resultado->bindParam(':userid', $this->userid);
 
         $resultado->execute();
-        $conexion = '';
+        
 
-        return $resultado->fetchAll(PDO::FETCH_ASSOC);
+        $filas = $resultado->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($filas as &$fila) {
+            if (!empty($fila['altura']) && !empty($fila['peso'])) {
+                $altura_m = $fila['altura'] / 100;
+                $fila['imc'] = round($fila['peso'] / ($altura_m * $altura_m), 2);
+            } else {
+                $fila['imc'] = null;
+            }
+        }
+        $conexion = null;
+
+        return $filas;
     }
+
 }
 
 <?php
@@ -348,4 +361,5 @@ class registro{
         }
     }
 }
+
 
