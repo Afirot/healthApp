@@ -53,7 +53,23 @@ class Paciente
             return false;
         }
     }
+public function extract_data()
+    {
+        $fecha = date('Y-m-d');
 
+        $conexion = db_conection('localhost', 'lector_datos', "pT9g!uJ4mX2s@Qf", 'health_app');
+
+        $consulta = 'SELECT peso, altura, fecha FROM datos WHERE userid = :userid;';
+
+        $resultado = $conexion->prepare($consulta);
+
+        $resultado->bindParam(':userid', $this->userid);
+
+        $resultado->execute();
+        $conexion = '';
+
+        return $resultado->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 
 <?php
@@ -332,3 +348,4 @@ class registro{
         }
     }
 }
+
