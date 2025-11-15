@@ -33,3 +33,15 @@ INSERT INTO `datos` (`id`, `userid`, `altura`, `peso`, `fecha`) VALUES
 (4, 1, 70, 20, '2025-11-07'),
 (5, 1, 70, 20, '2025-11-07'),
 (6, 1, 80, 120, '2025-11-07');
+
+CREATE USER 'inserter_user'@'%' IDENTIFIED BY 'UuPZONibjAC0fJgj';
+GRANT INSERT ON health_app.users TO 'inserter_user'@'%';
+FLUSH PRIVILEGES;
+
+CREATE USER 'db_users'@'%' IDENTIFIED BY 'wdwBSz4uwFblFQ2C';
+GRANT SELECT ON health_app.users TO 'db_users'@'%';
+FLUSH PRIVILEGES;
+
+CREATE USER 'lector_datos'@'%' IDENTIFIED BY 'pT9g!uJ4mX2s@Qf';
+GRANT SELECT ON health_app.datos TO 'lector_datos'@'%';
+FLUSH PRIVILEGES;
