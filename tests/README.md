@@ -1,3 +1,8 @@
+# Pruebas unitarias del código PHP
+Las pruebas se han realizado mediante el framework phpunit, el código de las pruebas se encuentra en la carpeta Apache
+
+<img width="1920" height="768" alt="image" src="https://github.com/user-attachments/assets/f0f47408-ba8f-4d80-af99-5f473b6338b2" />
+
 # Pruebas unitarias Clase Paciente
 
 # Función Construct
@@ -44,4 +49,5 @@ Atributo usuario.
 | Usuarios no exitentes en la tabla health_app.users   | Zafrilla1843    | True           |
 | Usuarios exitentes en la tabla health_app.users      | ignacio         | False          |
 
-Importante: No se ha realizado pruebas unitarias de los datos de registro e inicio de sesión, ya que estos datos se controlan sus formatos mediante expresiones regulares en el frontend
+
+<b>Importante: No se ha realizado pruebas unitarias de los datos de registro e inicio de sesión, ya que estos datos se controlan sus formatos mediante expresiones regulares en el frontend.<b>
