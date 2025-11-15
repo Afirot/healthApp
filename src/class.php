@@ -119,7 +119,7 @@ class registro{
                          :fechaNacimiento)';
             $resultado = $conexion->prepare($consulta);
 
-            $hex = generarHexAleatorio(32);
+            $hex = $this->generarHexAleatorio(32);
             $hash = password_hash($this->pass, PASSWORD_BCRYPT);
 
             $resultado->bindParam(':userid', $hex);
@@ -309,6 +309,7 @@ class registro{
         }
     }
 }
+
 
 
 
