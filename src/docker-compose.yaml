@@ -1,0 +1,34 @@
+services:
+  apache:
+# Configuracion del primer servicio (Apache + PHP)
+    build: . #Usara el dockerfile que encuentre en la ruta actual para construir el contenedor
+    #image: php:8.3-apache
+    user: $UID:$GID
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./apache:/var/www/html
+      #- ./webConf:/etc/apache2
+      #- ./php:/usr/local/etc/php/conf.d
+
+  mariaDB:
+# Configuracion del segundo servicio (MariaDB)
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: Contraseca1234
+      MYSQL_DATABASE: basededatos
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mariaDB/:/var/lib/mysql
+
+  phpmyadmin:
+# Configuracion de phpmyadmin
+    image: phpmyadmin
+    environment:
+      PMA_HOST: mariaDB
+    ports:
+      - 8080:80
+    depends_on:
+      - mariaDB
