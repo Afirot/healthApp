@@ -34,6 +34,7 @@ INSERT INTO `datos` (`id`, `userid`, `altura`, `peso`, `fecha`) VALUES
 (5, 1, 70, 20, '2025-11-07'),
 (6, 1, 80, 120, '2025-11-07');
 
+-- Creación de usuarios de las tablas de la BD
 CREATE USER 'inserter_user'@'%' IDENTIFIED BY 'UuPZONibjAC0fJgj';
 GRANT INSERT ON health_app.users TO 'inserter_user'@'%';
 FLUSH PRIVILEGES;
