@@ -37,6 +37,7 @@ INSERT INTO `datos` (`id`, `userid`, `altura`, `peso`, `fecha`) VALUES
 -- Creación de usuarios de las tablas de la BD
 CREATE USER 'inserter_user'@'%' IDENTIFIED BY 'UuPZONibjAC0fJgj';
 GRANT INSERT ON health_app.users TO 'inserter_user'@'%';
+GRANT INSERT ON health_app.datos TO 'inserter_user'@'%';
 FLUSH PRIVILEGES;
 
 CREATE USER 'db_users'@'%' IDENTIFIED BY 'wdwBSz4uwFblFQ2C';
