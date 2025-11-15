@@ -101,6 +101,11 @@ class registro{
         $this->apellidos=$apellidos_;
         $this->fechaNacimiento=$fechaNacimiento_;
     }
+    function generarHexAleatorio($longitud) {
+        // 32 caracteres hexadecimales = 16 bytes
+        $bytes = random_bytes($longitud / 2);
+        return bin2hex($bytes);
+    }
     function insertarUsuario(){
         $dsn = 'mysql:host=localhost;dbname=health_app';
         $usuario = 'inserter_user';
@@ -108,14 +113,16 @@ class registro{
         
         try {
             $conexion = new PDO($dsn,$usuario,$clave);
-            $consulta = 'INSERT INTO (username,hash,nombre,apellidos,
+            $consulta = 'INSERT INTO (userid,username,hash,nombre,apellidos,
                          fecha_nacimiento)
-                         VALUES(:username,:hash,:nombre,:apellidos,
+                         VALUES(:userid,:username,:hash,:nombre,:apellidos,
                          :fechaNacimiento)';
             $resultado = $conexion->prepare($consulta);
-            
+
+            $hex = generarHexAleatorio(32);
             $hash = password_hash($this->pass, PASSWORD_BCRYPT);
-            
+
+            $resultado->bindParam(':userid', $hex);
             $resultado->bindParam(':username', $this->usuario);
             $resultado->bindParam(':hash', $hash);
             $resultado->bindParam(':nombre', $this->nombre);
@@ -302,6 +309,7 @@ class registro{
         }
     }
 }
+
 
 
 
