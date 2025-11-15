@@ -1,6 +1,6 @@
 /* Tabla users */
 CREATE TABLE `users` (
-  `userid` VARCHAR(32) NOT NULL,
+  `userid` CHAR(32) NOT NULL,
   `username` VARCHAR(32) NOT NULL,
   `hash` VARCHAR(100) NOT NULL,
   `nombre` VARCHAR(32) NOT NULL,
