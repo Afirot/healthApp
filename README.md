@@ -17,7 +17,7 @@ Para desplegar el contenedor nos situaremos dentro del directorio src, este cont
 
 # Linux
 
-´docker-compose up´
+<pre>docker-compose up</pre>
 
 # Windows
 
