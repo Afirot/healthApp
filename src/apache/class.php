@@ -198,7 +198,7 @@ class registro{
                                      <div>
                                           <input type="text" name="apellidos" id="apellidos" value=""
                                                  title="Los apellidos deben contener solo letras"
-                                                 pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{5,32}"
+                                                 pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,32}"
                                                  required/>
                                      </div>
                                      <br>
@@ -329,6 +329,7 @@ class registro{
         }
     }
 }
+
 
 
 
