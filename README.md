@@ -39,6 +39,10 @@ Para acceder a la aplicación web, debemos acceder a nuestro navegador preferido
 
 <pre>XXX.XXX.XXX.XXX</pre>
 
+Una vez comprobado que puede acceder nuestros clientes, podrán hacer uso de HealthApp mediante un registro de un usuario, el cuál contendrá sus datos.
+
+<img width="1853" height="837" alt="image" src="https://github.com/user-attachments/assets/56461df1-f833-4ff1-a04d-2b8716a4949f" />
+
 # Advertencia de seguridad
 
 Cambiar las contraseñas de la BD en el archivo YAML y de los distintos usuarios usados por la aplicación. Puede llevar a filtraciones de datos.
