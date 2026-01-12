@@ -11,7 +11,7 @@ services:
       - ./apache:/var/www/html
       #- ./webConf:/etc/apache2
       #- ./php:/usr/local/etc/php/conf.d
-
+    container_name: lamp-mariaDB-1
   mariaDB:
 # Configuracion del segundo servicio (MariaDB)
     image: mariadb
