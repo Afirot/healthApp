@@ -13,14 +13,32 @@ Para más información del proceso de instalación de Docker-Compose y requisito
 
 HealthApp es una aplicación web desarrolada principalmente en PHP, para mayor comodidad, se ha dockerizado la aplicación y tecnologías necesarias para su correcto funcionamiento.
 
+## Linux
+
 Para desplegar el contenedor nos situaremos dentro del directorio src, este contendrá los archivos de configuración para desplegar los contenedores necesarios para el funcionamiento de la aplicación.
 
-## Linux
+<pre>cd src</pre>
+
+Una vez situados dentro, ejecutaremos el siguiente comando para levantar los contenedores.
 
 <pre>docker-compose up</pre>
 
+Una vez finalizado el proceso de instalación de los contenedores, podemos realizar una comprobación para ver si ha sido exitoso.
+
+<pre>docker ps -a</pre>
+
 ## Windows
+
+
+
+# Funcionamiento
+
+## Acceso a HealthApp
+
+Para acceder a la aplicación web, debemos acceder a nuestro navegador preferido y dirigirnos a la IP del equipo donde se ha desplegado la aplicación.
+
+<pre>127.0.0.1</pre>
 
 # Advertencia de seguridad
 
-Cambiar las contraseñas de la BD en el archivo YAML y de los distintos usuarios usados por la aplicación. Puede llevar a filtraciones de datos 
+Cambiar las contraseñas de la BD en el archivo YAML y de los distintos usuarios usados por la aplicación. Puede llevar a filtraciones de datos.
