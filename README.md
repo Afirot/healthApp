@@ -9,6 +9,6 @@
 HealthApp es una aplicación web desarrolada principalmente en PHP, para mayor comodidad, se ha dockerizado la aplicación y tecnologías necesarias para su correcto funcionamiento.
 
 
-#Advertencia de seguridad
+# Advertencia de seguridad
 
 Cambiar las contraseñas de la BD en el archivo YAML y de los distintos usuarios usados por la aplicación. Puede llevar a filtraciones de datos 
