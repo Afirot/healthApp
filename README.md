@@ -37,7 +37,7 @@ Una vez finalizado el proceso de instalación de los contenedores, podemos reali
 
 Para acceder a la aplicación web, debemos acceder a nuestro navegador preferido y dirigirnos a la IP del equipo donde se ha desplegado la aplicación.
 
-<pre>127.0.0.1</pre>
+<pre>XXX.XXX.XXX.XXX</pre>
 
 # Advertencia de seguridad
 
