@@ -15,11 +15,11 @@ HealthApp es una aplicación web desarrolada principalmente en PHP, para mayor c
 
 Para desplegar el contenedor nos situaremos dentro del directorio src, este contendrá los archivos de configuración para desplegar los contenedores necesarios para el funcionamiento de la aplicación.
 
-# Linux
+## Linux
 
 <pre>docker-compose up</pre>
 
-# Windows
+## Windows
 
 # Advertencia de seguridad
 
