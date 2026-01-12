@@ -27,10 +27,6 @@ Una vez finalizado el proceso de instalación de los contenedores, podemos reali
 
 <pre>docker ps -a</pre>
 
-## Windows
-
-
-
 # Funcionamiento
 
 ## Acceso a healthApp
