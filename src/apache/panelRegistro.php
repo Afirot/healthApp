@@ -41,7 +41,7 @@ try {
             <div>
                  <input type="text" name="apellidos" id="apellidos" value=""
                         title="Los apellidos deben contener solo letras"
-                        pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{5,32}"
+                        pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,32}"
                         required/>
             </div>
             <br>
@@ -57,22 +57,21 @@ try {
             <label>Contraseña</label>
             <div>
                 <input type="password" name="pass" id="pass"
-                       pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
-                       value=""
-                       title="La contraseña debe contener mínimo 8 caracteres,
-                              al menos una letra mayúscula y un caracter
-                              especial"
-                       required/>
+                    pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{8,}$"
+                    title="La contraseña debe contener mínimo 8 caracteres,
+                            al menos una letra mayúscula, un número y un carácter especial"
+                    required />
+
             </div>
             <br>
             <label>Repite la contraseña</label>
             <div>
                 <input type="password" name="pass2" id="pass2"
-                       pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
-                       value=""
-                       title="Debe introducir la contraseña de nuevo
-                              obligatoriamente"
-                       required/>
+                    pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{8,}$"
+                    title="La contraseña debe contener mínimo 8 caracteres,
+                            al menos una letra mayúscula, un número y un carácter especial"
+                    required />
+
             </div>
             <br>
             <button type="submit"><a>Registrarse<a/></button>
