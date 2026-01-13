@@ -214,7 +214,7 @@ class registro{
                                      <label>Contraseña</label>
                                      <div>
                                          <input type="password" name="pass" id="pass"
-                                                pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
+                                                pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{8,}$"
                                                 value=""
                                                 title="La contraseña debe contener mínimo 8 caracteres,
                                                        al menos una letra mayúscula y un caracter
@@ -225,7 +225,7 @@ class registro{
                                      <label>Repite la contraseña</label>
                                      <div>
                                          <input type="password" name="pass2" id="pass2"
-                                                pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
+                                                pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{8,}$"
                                                 value=""
                                                 title="Debe introducir la contraseña de nuevo
                                                        obligatoriamente"
@@ -280,7 +280,7 @@ class registro{
                                  <div>
                                       <input type="text" name="apellidos" id="apellidos" value=""
                                              title="Los apellidos deben contener solo letras"
-                                             pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{5,32}"
+                                             pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,32}"
                                              required/>
                                  </div>
                                  <br>
@@ -298,7 +298,7 @@ class registro{
                                  <label>Contraseña</label>
                                  <div>
                                      <input type="password" name="pass" id="pass"
-                                            pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
+                                            pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{8,}$"
                                             value=""
                                             title="La contraseña debe contener mínimo 8 caracteres,
                                                    al menos una letra mayúscula y un caracter
@@ -309,7 +309,7 @@ class registro{
                                  <label>Repite la contraseña</label>
                                  <div>
                                      <input type="password" name="pass2" id="pass2"
-                                            pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
+                                            pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{8,}$"
                                             value=""
                                             title="Debe introducir la contraseña de nuevo
                                                    obligatoriamente"
@@ -329,6 +329,7 @@ class registro{
         }
     }
 }
+
 
 
 
