@@ -39,7 +39,7 @@ Una vez comprobado que puede acceder nuestros pacientes, podrán hacer uso de he
 
 <img width="1853" height="837" alt="image" src="https://github.com/user-attachments/assets/56461df1-f833-4ff1-a04d-2b8716a4949f" />
 
-Una vez que inicio sesión el paciente podrá encontrarse con su prefil personal de su usuario y podrá registrar su peso y altura, para ir creando un control histórico del paciente.
+Una vez que inicio sesión el paciente podrá encontrarse con su perfil personal de su usuario y podrá registrar su peso y altura, para ir creando un control histórico del paciente.
 
 
 
