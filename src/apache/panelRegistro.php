@@ -24,7 +24,7 @@ try {
             <label>Usuario</label>
             <div>
                 <input type="text" name="usuario" id="usuario" value=""
-                       title="El nombre del usuario debe contener solo letras 
+                       title="El nombre del usuario debe contener solo letras
                               y números"
                        pattern="[A-Za-z0-9]{2,32}"
                        required/>
@@ -57,8 +57,8 @@ try {
             <label>Contraseña</label>
             <div>
                 <input type="password" name="pass" id="pass"
-                    pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{8,}$"
-                    title="La contraseña debe contener mínimo 8 caracteres,
+                    pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{15,64}$"
+                    title="La contraseña debe contener mínimo 15 caracteres,
                             al menos una letra mayúscula, un número y un carácter especial"
                     required />
 
@@ -67,8 +67,8 @@ try {
             <label>Repite la contraseña</label>
             <div>
                 <input type="password" name="pass2" id="pass2"
-                    pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{8,}$"
-                    title="La contraseña debe contener mínimo 8 caracteres,
+                    pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{15,64}$"
+                    title="La contraseña debe contener mínimo 15 caracteres,
                             al menos una letra mayúscula, un número y un carácter especial"
                     required />
 
