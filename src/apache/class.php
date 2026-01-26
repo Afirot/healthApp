@@ -8,7 +8,6 @@ class Paciente
     public $fecha_nacimiento;
     public function __construct($sessionid__)
     {
-
         $this->userid = $sessionid__;
 
         $conexion = db_conection('lamp-mariaDB-1', 'db_users', "wdwBSz4uwFblFQ2C", 'health_app');
@@ -24,7 +23,6 @@ class Paciente
         $this->nombre = $datos['nombre'];
         $this->apellidos = $datos['apellidos'];
         $this->fecha_nacimiento = $datos['fecha_nacimiento'];
-
     }
 
     public function welcome()
@@ -130,7 +128,7 @@ class registro{
         $resultado = $conexion->prepare($consulta);
 
         $hex = $this->generarHexAleatorio(32);
-        $hash = password_hash($this->pass, PASSWORD_BCRYPT);
+        $hash = password_hash($this->pass, PASSWORD_ARGON2I, ['memory_cost' => 1<<17, 'time_cost' => 4, 'threads' => 2]);
 
         $resultado->bindParam(':userid', $hex);
         $resultado->bindParam(':username', $this->usuario);
@@ -144,11 +142,11 @@ class registro{
         header("Location: index.php?registro=exitoso");
         exit;
 
-    } catch (PDOException $exception){
-        echo "Fallo de conexión: ", $exception->getMessage();
-        return false;
+        } catch (PDOException $exception){
+            echo "Fallo de conexión: ", $exception->getMessage();
+            return false;
+        }
     }
-}
 
     function comprobarUsuario(){
         $dsn = "mysql:host=lamp-mariaDB-1;dbname=health_app";
@@ -214,9 +212,9 @@ class registro{
                                      <label>Contraseña</label>
                                      <div>
                                          <input type="password" name="pass" id="pass"
-                                                pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{8,}$"
+                                                pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{15,64}$"
                                                 value=""
-                                                title="La contraseña debe contener mínimo 8 caracteres,
+                                                title="La contraseña debe contener mínimo 15 caracteres,
                                                        al menos una letra mayúscula y un caracter
                                                        especial"
                                                 required/>
@@ -225,7 +223,7 @@ class registro{
                                      <label>Repite la contraseña</label>
                                      <div>
                                          <input type="password" name="pass2" id="pass2"
-                                                pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{8,}$"
+                                                pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{15,64}$"
                                                 value=""
                                                 title="Debe introducir la contraseña de nuevo
                                                        obligatoriamente"
@@ -246,7 +244,117 @@ class registro{
             echo "Fallo de conexión ", $exception->getmessage();
         }
     }
-    
+
+    function passwordPwned(){
+        $hash = strtoupper(sha1($this->pass));
+        $prefix = substr($hash, 0, 5);
+        $suffix = substr($hash, 5);
+
+        $url = "https://api.pwnedpasswords.com/range/$prefix";
+
+        $ch = curl_init($url);
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 5,
+            CURLOPT_HTTPHEADER => [
+                'User-Agent: MyApp Password Checker'
+            ],
+        ]);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        $paginaPwned = '<!DOCTYPE html>
+                        <html>
+                            <head>
+                                <meta charset="UTF-8">
+                                <link rel="stylesheet" href="css/paneles.css">
+                                <title></title>
+                            </head>
+                            <body>
+                                <form class="registro" action="registrarUsuario.php" method="post">
+                                    <h1>Registro</h1>
+                                    <br>
+                                    <label>Usuario</label>
+                                    <div>
+                                        <input type="text" name="usuario" id="usuario" value=""
+                                               title="El nombre del usuario debe contener solo letras 
+                                                      y números"
+                                                pattern="[A-Za-z0-9]{2,32}"
+                                                required/>
+                                    </div>
+                                    <br>
+                                    <label>Nombre</label>
+                                    <div>
+                                        <input type="text" name="nombre" id="nombre" value=""
+                                               title="El nombre debe contener solo letras"
+                                                pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ]{2,32}" title="" required/>
+                                    </div>
+                                    <br>
+                                    <label>Apellidos</label>
+                                    <div>
+                                        <input type="text" name="apellidos" id="apellidos" value=""
+                                               title="Los apellidos deben contener solo letras"
+                                               pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,32}"
+                                               required/>
+                                    </div>
+                                    <br>
+                                    <label>Fecha de Nacimiento</label>
+                                    <div>
+                                        <input type="date" name="fechaNacimiento" id="fechaNacimiento"
+                                               value=""
+                                               title="La fecha de nacimiento del paciente es
+                                                      obligatorio"
+                                               required/>
+                                    </div>
+                                    <br>
+                                    <h1>La contraseña introducida se encuentra en Bases de Datos exfiltradas, por seguridad introduzca una nueva contraseña</h1>
+                                    <div class="box">
+                                        <img src="Hero.svg">
+                                    </div>
+                                    <br>
+                                    <label>Contraseña</label>
+                                    <div>
+                                        <input type="password" name="pass" id="pass"
+                                               pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{15,64}$"
+                                               value=""
+                                               title="La contraseña debe contener mínimo 15 caracteres,
+                                                      al menos una letra mayúscula y un caracter
+                                                      especial"
+                                               required/>
+                                    </div>
+                                    <br>
+                                    <label>Repite la contraseña</label>
+                                    <div>
+                                        <input type="password" name="pass2" id="pass2"
+                                               pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{15,64}$"
+                                               value=""
+                                               title="Debe introducir la contraseña de nuevo
+                                                      obligatoriamente"
+                                               required/>
+                                    </div>
+                                    <br>
+                                    <button type="submit">Registrarse</button>
+                                </form>
+                            </body>
+                        </html>';
+
+        if ($response === false) {
+            throw new Exception("Error al consultar HIBP");
+        }
+
+        foreach (explode("\n", $response) as $line) {
+            [$hashSuffix, $count] = explode(':', trim($line));
+            if ($hashSuffix === $suffix) {
+                echo $paginaPwned;
+                return false;
+            }
+        }
+            
+        $this->comprobarUsuario();
+        return True;
+    }
+
     function comprobarPass(){
         if($this->pass !== $this->pass2){
             $salida='<!DOCTYPE html>
@@ -298,9 +406,9 @@ class registro{
                                  <label>Contraseña</label>
                                  <div>
                                      <input type="password" name="pass" id="pass"
-                                            pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{8,}$"
+                                            pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{15,64}$"
                                             value=""
-                                            title="La contraseña debe contener mínimo 8 caracteres,
+                                            title="La contraseña debe contener mínimo 15 caracteres,
                                                    al menos una letra mayúscula y un caracter
                                                    especial"
                                             required/>
@@ -309,7 +417,7 @@ class registro{
                                  <label>Repite la contraseña</label>
                                  <div>
                                      <input type="password" name="pass2" id="pass2"
-                                            pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{8,}$"
+                                            pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{15,64}$"
                                             value=""
                                             title="Debe introducir la contraseña de nuevo
                                                    obligatoriamente"
@@ -323,17 +431,8 @@ class registro{
             echo $salida;
             return False;
         }else{
-            
-            $this->comprobarUsuario();
+            $this->passwordPwned();
             return True;
         }
     }
 }
-
-
-
-
-
-
-
-
