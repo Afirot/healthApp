@@ -1,3 +1,4 @@
+
 <?php
 try{
     include 'functions.php';
@@ -30,8 +31,30 @@ try{
         header('location: main.php');
         exit;
     }else{
+	$ip = $_SERVER['REMOTE_ADDR'];
+	$method = $_SERVER['REQUEST_METHOD'];
+	$uri = $_SERVER['REQUEST_URI'];
+	$protocol = $_SERVER['SERVER_PROTOCOL'];
+	$status = 200;
+	$size = 512;
+	$referer =  $_SERVER['HTTP_REFERER'];
+	$userAgent = $_SERVER['HTTP_USER_AGENT'];
+	$fecha = date('d/M/Y:H:i:s O');
+	$log_line = sprintf('%s - - [%s] "%s %s %s" %d %d "%s" "%s"', $ip, $fecha, $method, $uri, $protocol, $status, $size, $referer, $userAgent);
         //En caso de que los datos no sean correctos se reenviara al index.php
-        header('location: index.php');
+	$log_file = '/var/log/apache/login-log.log';
+	@file_put_contents($log_file, $log_line, FILE_APPEND);
+        echo '<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="refresh" content="0;url=index.php">
+</head>
+<body>
+Si no eres redirigido automáticamente, <a href="index.php">haz clic aquí</a>.
+</body>
+</html>';
+	exit;
+
         exit;
     }
 } catch (Exception $ex){
