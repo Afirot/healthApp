@@ -9,6 +9,7 @@ services:
       - 443:443
     volumes:
       - ./apache:/var/www/html:Z
+      - ./fail2ban:/etc/fail2ban:Z
       #- ./webConf:/etc/apache2
       #- ./php:/usr/local/etc/php/conf.d
   mariaDB:
