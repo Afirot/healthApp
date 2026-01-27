@@ -4,6 +4,7 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     libpng-dev \
     libjpeg-dev \
+    iptables \
     libfreetype6-dev \
     libonig-dev \
     fail2ban \
@@ -18,5 +19,6 @@ RUN apt-get update && apt-get install -y \
     && cp /etc/modsecurity/modsecurity.conf-recommended /etc/modsecurity/modsecurity.conf
 RUN a2enmod rewrite
 RUN mkdir -p /var/log/apache
-RUN chown www-data:www-data /var/log/apache
-RUN chmod 755 /var/log/apache
+RUN touch /var/log/apache/login-log.log
+RUN chown -R www-data:www-data /var/log/apache
+RUN chmod -R 755 /var/log/apache
