@@ -4,22 +4,26 @@ services:
     build: . #Usara el dockerfile que encuentre en la ruta actual para construir el contenedor
     #image: php:8.3-apache
     user: $UID:$GID
-    ports:
-      - 80:80
-      - 443:443
+#    ports:
+#      - 80:80
+#      - 443:443
+    network_mode: host
     volumes:
       - ./apache:/var/www/html:Z
       - ./fail2ban:/etc/fail2ban:Z
       #- ./webConf:/etc/apache2
       #- ./php:/usr/local/etc/php/conf.d
+    privileged: true
+    container_name: apache-healthapp
   mariaDB:
 # Configuracion del segundo servicio (MariaDB)
     image: mariadb
     environment:
       MYSQL_ROOT_PASSWORD: Contraseca1234
       MYSQL_DATABASE: basededatos
-    ports:
-      - 3306:3306
+#    ports:
+#      - 3306:3306
+    network_mode: host
     volumes:
       - ./mariaDB/:/var/lib/mysql:Z
     container_name: lamp-mariaDB-1
