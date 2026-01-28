@@ -12,8 +12,9 @@ Para más información del proceso de instalación de Docker-Compose y requisito
 # Pasos de Instalación
 
 HealthApp es una aplicación web desarrolada principalmente en PHP, para mayor comodidad, se ha dockerizado la aplicación y tecnologías necesarias para su correcto funcionamiento.
+La aplicación esta pensada para desplegarse en un entorno Linux actualmente.
 
-## Linux
+## Despliegue de healthApp
 
 Para desplegar el contenedor nos situaremos dentro del directorio src, este contendrá los archivos de configuración para desplegar los contenedores necesarios para el funcionamiento de la aplicación.
 
