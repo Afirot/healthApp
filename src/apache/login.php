@@ -43,7 +43,7 @@ try{
 	$log_line = sprintf('%s - - [%s] "%s %s %s" %d %d "%s" "%s"', $ip, $fecha, $method, $uri, $protocol, $status, $size, $referer, $userAgent);
         //En caso de que los datos no sean correctos se reenviara al index.php
 	$log_file = '/var/log/apache/login-log.log';
-	@file_put_contents($log_file, $log_line, FILE_APPEND);
+	@file_put_contents($log_file, $log_line . PHP_EOL, FILE_APPEND);
         echo '<!DOCTYPE html>
 <html>
 <head>
