@@ -4,7 +4,7 @@ try{
     include 'functions.php';
 
     //Aqui inicio la conexion, deberiamos buscar una forma de crear esta misma conexion desde un .env por razones de seguridad
-    $conexion = db_conection('localhost', 'db_users', "wdwBSz4uwFblFQ2C", 'health_app');
+    $conexion = db_conection('127.0.0.1', 'db_users', "wdwBSz4uwFblFQ2C", 'health_app');
 
     //Esta es la consulta
     $consulta = 'SELECT userid, username, hash FROM users WHERE username = :nombre';
