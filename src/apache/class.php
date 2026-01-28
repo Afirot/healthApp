@@ -10,7 +10,7 @@ class Paciente
     {
         $this->userid = $sessionid__;
 
-        $conexion = db_conection('localhost', 'db_users', "wdwBSz4uwFblFQ2C", 'health_app');
+        $conexion = db_conection('127.0.0.1', 'db_users', "wdwBSz4uwFblFQ2C", 'health_app');
 
         $consulta = 'SELECT username, nombre, apellidos, fecha_nacimiento FROM users WHERE userid = :id LIMIT 1';
         $resultado = $conexion->prepare($consulta);
@@ -42,7 +42,7 @@ class Paciente
 
         $fecha = date('Y-m-d');
 
-        $conexion = db_conection('localhost', 'inserter_user', "UuPZONibjAC0fJgj", 'health_app');
+        $conexion = db_conection('127.0.0.1', 'inserter_user', "UuPZONibjAC0fJgj", 'health_app');
 
         $consulta = 'INSERT INTO `datos` (`userid`, `altura`, `peso`, `fecha`) VALUES (:userid, :altura, :peso, :fecha);';
 
@@ -65,7 +65,7 @@ class Paciente
     {
         $fecha = date('Y-m-d');
 
-        $conexion = db_conection('localhost', 'lector_datos', "pT9g!uJ4mX2s@Qf", 'health_app');
+        $conexion = db_conection('127.0.0.1', 'lector_datos', "pT9g!uJ4mX2s@Qf", 'health_app');
 
         $consulta = 'SELECT peso, altura, fecha FROM datos WHERE userid = :userid;';
 
@@ -114,7 +114,7 @@ class registro{
         return bin2hex($bytes);
     }
     function insertarUsuario(){
-    $dsn = 'mysql:host=localhost;dbname=health_app';
+    $dsn = 'mysql:host=127.0.0.1;dbname=health_app';
     $usuario = 'inserter_user';
     $clave = 'UuPZONibjAC0fJgj';
     
@@ -149,7 +149,7 @@ class registro{
     }
 
     function comprobarUsuario(){
-        $dsn = "mysql:host=localhost;dbname=health_app";
+        $dsn = "mysql:host=127.0.0.1;dbname=health_app";
         $usuario = "db_users";
         $clave = "wdwBSz4uwFblFQ2C";
         
@@ -436,4 +436,5 @@ class registro{
         }
     }
 }
+
 
