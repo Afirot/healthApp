@@ -320,7 +320,7 @@ enabled = true
 filter = login
 fort= http,https
 logpath = /var/log/apache/login-log.log
-maxretry = 15
+maxretry = 10
 findtime = 600
 bantime = 3600
 
