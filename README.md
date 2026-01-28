@@ -19,9 +19,10 @@ Para desplegar el contenedor nos situaremos dentro del directorio src, este cont
 
 <pre>cd src</pre>
 
-Una vez situados dentro, ejecutaremos el siguiente comando para levantar los contenedores.
+Una vez situados dentro, añadiremos permisos de ejecución al script builder.sh y lo ejecutaremos para levantar los contenedores.
 
-<pre>docker-compose up</pre>
+<pre>chmod +x builder.sh</pre>
+<pre>./builder.sh</pre>
 
 Una vez finalizado el proceso de instalación de los contenedores, podemos realizar una comprobación para ver si ha sido exitoso.
 
