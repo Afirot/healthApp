@@ -40,7 +40,7 @@ services:
 #  vscode:
 #    image: codercom/code-server:latest
 #    container_name: vscode
-#    enviroment:
+#    environment:
 #    - PASSWORD=1A2b3c4d5e
 #    ports:
 #      - 8081:8080
