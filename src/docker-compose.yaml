@@ -36,3 +36,17 @@ services:
       - 8080:80
     depends_on:
       - mariaDB
+# Descomentar para poder utilizar el contenedor de desarrollo
+#  vscode:
+#    image: codercom/code-server:latest
+#    container_name: vscode
+#    enviroment:
+#    - PASSWORD=1A2b3c4d5e
+#    ports:
+#      - 8081:8080
+#    volumes:
+#      - ./apache:/home/cpder/project
+#      - vscode-data:/home/coder/.local/share/code-server
+#    restart: unless-stopped
+#volumes:
+#  vscode-data:
