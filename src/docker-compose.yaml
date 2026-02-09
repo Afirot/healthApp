@@ -46,7 +46,9 @@ services:
 #    ports:
 #      - 8081:8080
 #    volumes:
-#      - ./apache:/home/coder/project
+#      - ./apache:/home/coder/apache
+#      - ./waf:/home/coder/waf
+#      - ./webConf:/home/coder/webConf
 #      - vscode-data:/home/coder/.local/share/code-server
 #    restart: unless-stopped
 #volumes:
