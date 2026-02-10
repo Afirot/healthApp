@@ -29,7 +29,7 @@ Una vez finalizado el proceso de instalación de los contenedores, podemos reali
 
 <pre>docker ps -a</pre>
 
-## Modificación del archivo host en los clientes
+## Modificación del archivo hosts en los clientes
 
 Si quiere hacer uso de healthApp en su red, por favor, en los ficheros de hosts de sus clientes agregue el siguiente registro sino contase con un servidor DNS local.
 
