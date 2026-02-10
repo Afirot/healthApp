@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Acceso Denegado - Bot Detectado</title>
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background: #f0f0f3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #333;
+      text-align: center;
+      padding: 20px;
+    }
+    .container {
+      background: white;
+      padding: 30px 40px 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      max-width: 380px;
+      width: 100%;
+    }
+    .robot-img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 12px;
+      color: #d64545;
+      letter-spacing: 1px;
+    }
+    p {
+      font-size: 1.1rem;
+      color: #555;
+      margin-bottom: 25px;
+      line-height: 1.4;
+    }
+    a.button {
+      background-color: #2978f0;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 12px 25px;
+      border-radius: 8px;
+      display: inline-block;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+    a.button:hover {
+      background-color: #185abc;
+    }
+    footer {
+      margin-top: 30px;
+      font-size: 0.85rem;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img
+      class="robot-img"
+      src="bot.svg"
+      alt="Robot ficha policial"
+    />
+    <h1>Acceso Denegado</h1>
+    <p>Hemos detectado actividad sospechosa. Si crees que es un error, intenta de nuevo o contacta con soporte.</p>
+    <a href="/" class="button" tabindex="0">Volver al Inicio</a>
+    <footer>&copy; 2026 healthApp</footer>
+  </div>
+</body>
+</html>
