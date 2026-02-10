@@ -29,6 +29,20 @@ Una vez finalizado el proceso de instalación de los contenedores, podemos reali
 
 <pre>docker ps -a</pre>
 
+## Modificación del archivo host en los clientes
+
+Si quiere hacer uso de healthApp en su red, por favor, en los ficheros de hosts de sus clientes agregue el siguiente registro sino contase con un servidor DNS local.
+
+<pre>XXX.XXX.XXX.XXX  healthapp.local</pre>
+
+## Ruta en Windows de fichero hosts
+
+<pre>C:\Windows\System32\drivers\etc\hosts</pre>
+
+## Ruta en Linux de fichero hosts
+
+<pre>/etc/hosts</pre>
+
 # Funcionamiento
 
 ## Acceso a healthApp
