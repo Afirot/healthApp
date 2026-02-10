@@ -9,16 +9,18 @@ try {
     header('Location: error500.php');
 }
 ?>
-
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="css/paneles.css">
+        <script type="module" src="js/register.js"></script>
         <title></title>
+        <script src="https://www.google.com/recaptcha/api.js?render=6LfaqWYsAAAAAB6-VarlZVgzz9bj31BLiUe7w6fh"></script>
+        <script src="recaptcha.js" defer></script>
     </head>
     <body>
-        <form class="registro" action="registrarUsuario.php" method="post">
+        <form class="registro" onsubmit="onClick(event)" action="registrarUsuario.php" method="post">
             <h1>Registro</h1>
             <br>
             <label>Usuario</label>
@@ -74,7 +76,9 @@ try {
 
             </div>
             <br>
-            <button type="submit"><a>Registrarse<a/></button>
+            <!-- Input oculto para el token reCAPTCHA -->
+            <input type="hidden" name="token" id="recaptchaToken" />
+            <button type="submit">Registrarse</button>
         </form>
     </body>
 </html>
