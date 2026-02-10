@@ -167,7 +167,7 @@ class registro{
                          <html>
                              <head>
                                  <meta charset="UTF-8">
-                                 <!--<link rel="stylesheet" href="css/styles.css">-->
+                                 <link rel="stylesheet" href="css/paneles.css">
                                  <title></title>
                              </head>
                              <body>
@@ -436,5 +436,6 @@ class registro{
         }
     }
 }
+
 
 
