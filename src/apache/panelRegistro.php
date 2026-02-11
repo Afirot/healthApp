@@ -13,6 +13,7 @@ try {
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self';">
         <link rel="stylesheet" href="css/paneles.css">
         <script type="module" src="js/register.js"></script>
         <title></title>

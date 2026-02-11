@@ -2,7 +2,7 @@
 try {
     session_start();
     if (isset($_SESSION['islogged'])) {
-        header('location: home.php');
+        header('location: main.php');
     }
 } catch (Throwable $ex) {
     error_log("Error: " . $ex->getMessage());
@@ -13,6 +13,8 @@ try {
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" 
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self';">
     <link rel="stylesheet" href="css/paneles.css">
     <title>Login - Health App</title>
     <script src="https://www.google.com/recaptcha/api.js?render=6LfaqWYsAAAAAB6-VarlZVgzz9bj31BLiUe7w6fh"></script>

@@ -167,6 +167,7 @@ class registro{
                          <html>
                              <head>
                                  <meta charset="UTF-8">
+                                 <meta http-equiv="Content-Security-Policy" content="default-src \'self\'; script-src \'self\'; style-src \'self\'; img-src \'self\';">
                                  <link rel="stylesheet" href="css/paneles.css">
                                  <title></title>
                              </head>
@@ -268,6 +269,7 @@ class registro{
                         <html>
                             <head>
                                 <meta charset="UTF-8">
+                                <meta http-equiv="Content-Security-Policy" content="default-src \'self\'; script-src \'self\'; style-src \'self\'; img-src \'self\';">
                                 <link rel="stylesheet" href="css/paneles.css">
                                 <title></title>
                             </head>
@@ -361,6 +363,7 @@ class registro{
                      <html>
                          <head>
                              <meta charset="UTF-8">
+                             <meta http-equiv="Content-Security-Policy" content="default-src \'self\'; script-src \'self\'; style-src \'self\'; img-src \'self\';">
                              <link rel="stylesheet" href="css/paneles.css">
                              <title></title>
                          </head>

@@ -27,6 +27,8 @@ try {
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" 
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self';">
     <!--<link rel="stylesheet" href="css/styles.css">-->
     <title>Health App</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
