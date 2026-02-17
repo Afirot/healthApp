@@ -26,9 +26,8 @@
                 //Aqui se inicia la sesion
                 session_start();
                 session_regenerate_id(true);
-                //Y se almacenan en $_SESSION un verificador de que se encuentra logeado y el id del usuario
-                $_SESSION['islogged'] = True;
-                $_SESSION['userid'] = $datos['userid'];
+                $jwt = jwt_generate($datos['username'], $datos['userid']);
+                $_SESSION['jwt'] = $jwt;
                 header('location: main.php');
                 exit;
             }else{
@@ -57,10 +56,10 @@
                 exit;
             }
         } catch (Exception $ex){
-            error_log("Error: " . $ex->getMessage());
-            header('Location: error500.php');
-            exit;
-            //echo $ex;
+            //error_log("Error: " . $ex->getMessage());
+            //header('Location: error500.php');
+            //exit;
+            echo $ex;
         }
     }
 ?>

@@ -1,9 +1,15 @@
 <?php
 try {
-    session_start();
-    if (isset($_SESSION['islogged'])) {
-        header('location: main.php');
+    include 'functions.php';
+    include "class.php";
+    
+    $conexion = db_conection('127.0.0.1', 'db_users', "wdwBSz4uwFblFQ2C", 'health_app');
+    if (!isset($_SESSION['jwt'])) {
+        header('Location: index.php');
+        exit;
     }
+    header('location: main.php');
+
 } catch (Throwable $ex) {
     error_log("Error: " . $ex->getMessage());
     header('Location: error500.php');

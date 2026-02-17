@@ -11,14 +11,29 @@ RUN apt-get update && apt-get install -y \
     default-mysql-client \
     zlib1g-dev \
     libapache2-mod-security2 \
+    curl \
     && docker-php-ext-install pdo_mysql mysqli zip \
     && docker-php-ext-enable pdo_mysql \
     && a2enmod rewrite \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && cp /etc/modsecurity/modsecurity.conf-recommended /etc/modsecurity/modsecurity.conf
-RUN a2enmod rewrite
-RUN mkdir -p /var/log/apache
-RUN touch /var/log/apache/login-log.log
-RUN chown -R www-data:www-data /var/log/apache
-RUN chmod -R 755 /var/log/apache
+
+# instalar composer
+RUN curl -sS https://getcomposer.org/installer | php \
+    -- --install-dir=/usr/local/bin --filename=composer
+
+# ESTABLECER DIRECTORIO DE TRABAJO
+WORKDIR /var/www/html
+
+# copiar tu proyecto
+COPY . /var/www/html
+
+# instalar dependencias
+RUN composer require firebase/php-jwt
+
+# permisos
+RUN mkdir -p /var/log/apache \
+    && touch /var/log/apache/login-log.log \
+    && chown -R www-data:www-data /var/log/apache \
+    && chmod -R 755 /var/log/apache

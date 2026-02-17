@@ -1,13 +1,4 @@
 <?php
-try {
-    session_start();
-    if (isset($_SESSION['islogged'])) {
-        header('location: home.php');
-    }
-} catch (Throwable $ex) {
-    error_log("Error: " . $ex->getMessage());
-    header('Location: error500.php');
-}
 ?>
 <!DOCTYPE html>
 <html>

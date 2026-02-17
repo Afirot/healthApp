@@ -3,18 +3,25 @@ session_start();
 
 try {
     include 'functions.php';
-    include 'class.php';
-
+    include "class.php";
+    
     $conexion = db_conection('127.0.0.1', 'db_users', "wdwBSz4uwFblFQ2C", 'health_app');
-    if (!isset($_SESSION['islogged']) || !$_SESSION['islogged'] === true) {
+    if (!isset($_SESSION['jwt'])) {
         header('Location: index.php');
         exit;
     }
-    $paciente = new Paciente($_SESSION["userid"]);
+    $jwt = $_SESSION['jwt'];
+    //Aqui vamos a validar el jwt
+    $data = jwt_validate($jwt);
+
+    $userid = $data->id;
+    $paciente = new Paciente($userid);
+
 } catch (Throwable $ex) {
-    error_log("Error: " . $ex->getMessage());
+    /*error_log("Error: " . $ex->getMessage());
     header('Location: error500.php');
-    exit();
+    exit();*/
+    echo $ex->getMessage();
 }
 
 $paciente->send_data($_POST['peso'], $_POST['altura']);
