@@ -4,11 +4,11 @@ try {
     include "class.php";
     
     $conexion = db_conection('127.0.0.1', 'db_users', "wdwBSz4uwFblFQ2C", 'health_app');
-    if (!isset($_SESSION['jwt'])) {
-        header('Location: index.php');
+    if (isset($_SESSION['jwt'])) {
+        header('Location: main.php');
         exit;
     }
-    header('location: main.php');
+    header('location: index.php');
 
 } catch (Throwable $ex) {
     error_log("Error: " . $ex->getMessage());
