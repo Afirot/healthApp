@@ -50,7 +50,7 @@ try {
     </div>
     <canvas id="grafica" width="400" height="200"></canvas>
     <script>
-        fetch('datos_usuario.php')
+        fetch('api/datos_usuario.php')
             .then(response => response.json())
             .then(data => {
                 const fecha = data.map(item => item.fecha);
