@@ -8,8 +8,6 @@ try {
         header('Location: main.php');
         exit;
     }
-    header('location: index.php');
-
 } catch (Throwable $ex) {
     error_log("Error: " . $ex->getMessage());
     header('Location: error500.php');
