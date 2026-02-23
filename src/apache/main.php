@@ -12,7 +12,10 @@ try {
     $jwt = $_SESSION['jwt'];
     //Aqui vamos a validar el jwt
     $data = jwt_validate($jwt);
-
+    
+    if (!$data || !isset($data->id)) {
+        die("JWT inválido");
+    }
     $userid = $data->id;
     $paciente = new Paciente($userid);
 
