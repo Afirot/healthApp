@@ -1,28 +1,34 @@
 <?php
     // Validacion RECAPTCHA
-    $token = $_POST['token'] ?? '';
+    /*$data = json_decode(file_get_contents("php://input"), true);
+    $token  = $data['token'] ?? '';
     $secret = "6LfaqWYsAAAAAL860Lgf8v5XHJpVef8rwAb9bYBH";
     $response = file_get_contents(
         "https://www.google.com/recaptcha/api/siteverify" .
         "?secret=$secret&response=$token"
     );
-    $result = json_decode($response, true);
-    if ($result["success"] && $result["score"] < 0.5) {
+    $result = json_decode($response, true);*/
+    /*if ($result["success"] && $result["score"] < 0.5) {
         header("Location: ../bot.html");
-    } else {
+    } else {*/
         try{
             include '../functions.php';
             //Aqui inicio la conexion, deberiamos buscar una forma de crear esta misma conexion desde un .env por razones de seguridad
             $conexion = db_conection('127.0.0.1', 'db_users', "wdwBSz4uwFblFQ2C", 'health_app');
             //Esta es la consulta
+            $data = json_decode(file_get_contents("php://input"), true);
+            $nombre = $data['nombre'] ?? '';
+            $pass   = $data['pass'] ?? '';
             $consulta = 'SELECT userid, username, hash FROM users WHERE username = :nombre';
             $preparado = $conexion->prepare($consulta);
-            $preparado->bindParam(':nombre', $_POST['nombre']);
+            $preparado->bindParam(':nombre', $nombre);
             $preparado->execute();
             $datos = $preparado->fetch();
+
+            
             //Esta es la base de la conexion, comprueba si existe un usuario y si hay un hash que coincidaq con la contraseña dentro de la base de datos
             //Los hashes deben codificarse en BCRYPT
-            if ($datos && password_verify($_POST['pass'], $datos['hash'])){
+            if ($datos && password_verify($pass, $datos['hash'])){
                 //Aqui se inicia la sesion
                 session_start();
                 session_regenerate_id(true);
@@ -48,10 +54,7 @@
                 echo json_encode(["error" => "Invalid Credentials"]);
             }
         } catch (Exception $ex){
-            //error_log("Error: " . $ex->getMessage());
-            //header('Location: error500.php');
-            //exit;
-            echo $ex;
+            echo json_encode(["error" => "Something whet wrong"]);
         }
-    }
+    //}
 ?>

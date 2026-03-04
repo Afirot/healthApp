@@ -9,11 +9,11 @@ try {
     include "../class.php";
     
     $conexion = db_conection('127.0.0.1', 'db_users', "wdwBSz4uwFblFQ2C", 'health_app');
-    if (!isset($_SESSION['jwt'])) {
+    if (!isset($_COOKIE['jwt'])) {
         header('Location: index.php');
         exit;
     }
-    $jwt = $_SESSION['jwt'];
+    $jwt = $_COOKIE['jwt'];
     //Aqui vamos a validar el jwt
     $data = jwt_validate($jwt);
 

@@ -1,0 +1,66 @@
+document.getElementById("loginForm").addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    const errorElement = document.getElementById("error");
+
+    errorElement.textContent = "";
+
+    try {
+
+        grecaptcha.ready(async function() {
+
+            /*const recaptchaToken = await grecaptcha.execute(
+                '6LfaqWYsAAAAAB6-VarlZVgzz9bj31BLiUe7w6fh',
+                {action: 'login'}
+            );*/
+
+            const nombre = document.getElementById("nombre").value;
+            const pass = document.getElementById("pass").value;
+
+            console.log(nombre);
+            console.log(pass);
+
+            const response = await fetch("../api/login.php", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    nombre: nombre,
+                    pass: pass,
+                    //token: recaptchaToken
+                })
+
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+
+                //localStorage.setItem("jwt", data.token);
+
+                document.cookie = "jwt=" + data.jwt + "; path=/; Secure; SameSite=Strict";
+
+                window.location.href = "main.php";
+
+            } else {
+
+                errorElement.textContent = data.error || "Credenciales incorrectas";
+
+            }
+
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        errorElement.textContent = "Error de conexión";
+
+    }
+
+});
