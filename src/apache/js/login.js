@@ -39,25 +39,20 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
 
             const data = await response.json();
 
-            if (response.ok) {
-
-                //localStorage.setItem("jwt", data.token);
+            if (data.jwt) {
 
                 document.cookie = "jwt=" + data.jwt + "; path=/; Secure; SameSite=Strict";
-
                 window.location.href = "main.php";
 
             } else {
 
-                errorElement.textContent = data.error || "Credenciales incorrectas";
+                alert(data.error);
 
             }
 
         });
 
     } catch (error) {
-
-        console.error(error);
 
         errorElement.textContent = "Error de conexión";
 
