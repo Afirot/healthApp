@@ -55,7 +55,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
     } catch (error) {
 
         //console.error("Error en login:", error);
-        errorElement.textContent = "Error de conexión cacho puta";
+        errorElement.textContent = "Error de conexión";
 
     }
 

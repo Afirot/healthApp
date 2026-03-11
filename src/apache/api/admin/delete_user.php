@@ -30,4 +30,23 @@ try {
     echo $ex->getMessage();
 }
 
-echo "Hola admin";
+try{
+    $data = json_decode(file_get_contents("php://input"), true);
+    $id = $data['iduser'] ?? '';
+    $consulta = "DELETE FROM users WHERE userid = :id";
+    $resultado = $conexion->prepare($consulta);
+    $resultado->bindParam(':id', $id);
+    $resultado->execute();
+
+    $mensaje = "Usuario eliminado con exito";
+
+    header('Content-Type: application/json');
+
+    echo json_encode($mensaje);
+    
+}catch (Throwable $ex) {
+    $mensaje = "$ex";
+
+    header('Content-Type: application/json');
+    echo json_encode($mensaje);
+}

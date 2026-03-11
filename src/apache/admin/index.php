@@ -62,6 +62,7 @@ $users = json_decode($response, true);
     <title>Login - Health App</title>
     <script src="https://www.google.com/recaptcha/api.js?render=6LfaqWYsAAAAAB6-VarlZVgzz9bj31BLiUe7w6fh"></script>
     <script src="../recaptcha.js" defer></script>
+    <script src="../js/delete_user.js" defer></script>
 </head>
 <body>
     <div>
@@ -71,11 +72,12 @@ $users = json_decode($response, true);
             </tr>
             <?php
                 foreach ($users as $user){
-                    $username = $user['username'];
-                    $nombre = $user['nombre'];
-                    $apellidos = $user['apellidos'];
-                    $rol = $user['rol'];
-                    echo "<tr><td>$username</td><td>$nombre</td><td>$apellidos</td><td>$rol</td><td><a>Delete User</a></td></tr>";
+                    $username = htmlspecialchars($user['username']);
+                    $nombre = htmlspecialchars($user['nombre']);
+                    $apellidos = htmlspecialchars($user['apellidos']);
+                    $rol = htmlspecialchars($user['rol']);
+                    $userid = $user['userid'];
+                    echo "<tr><td>$username</td><td>$nombre</td><td>$apellidos</td><td>$rol</td><td><a href='#' class='delete-user' data-id='$userid'>Delete User</a></td></tr>";
                 }
                 ?>
         </table>
