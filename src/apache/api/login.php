@@ -19,7 +19,7 @@
             $data = json_decode(file_get_contents("php://input"), true);
             $nombre = $data['nombre'] ?? '';
             $pass   = $data['pass'] ?? '';
-            $consulta = 'SELECT userid, username, hash FROM users WHERE username = :nombre';
+            $consulta = 'SELECT userid, username, hash, rol FROM users WHERE username = :nombre';
             $preparado = $conexion->prepare($consulta);
             $preparado->bindParam(':nombre', $nombre);
             $preparado->execute();
@@ -32,7 +32,7 @@
                 //Aqui se inicia la sesion
                 session_start();
                 session_regenerate_id(true);
-                $jwt = jwt_generate($datos['username'], $datos['userid']);
+                $jwt = jwt_generate($datos['username'], $datos['userid'], $datos['rol']);
                 //$_SESSION['jwt'] = $jwt;
                 header('Content-Type: application/json');
                 echo json_encode(["jwt" => $jwt]);
