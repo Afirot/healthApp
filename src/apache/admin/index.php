@@ -30,4 +30,55 @@ try {
     echo $ex->getMessage();
 }
 
-echo "Hola admin";
+$jwt = $_COOKIE['jwt'];
+
+$ch = curl_init();
+
+curl_setopt($ch, CURLOPT_URL, "http://localhost/api/admin/get_users.php");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    "Cookie: jwt=$jwt"
+]);
+
+$response = curl_exec($ch);
+curl_close($ch);
+
+$users = json_decode($response, true);
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy"
+        content="
+        default-src 'self';
+        script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com;
+        style-src 'self' 'unsafe-inline' https://www.gstatic.com;
+        img-src 'self' data: https://www.google.com https://www.gstatic.com;
+        connect-src 'self' https://www.google.com https://www.gstatic.com;
+        frame-src https://www.google.com;
+        font-src 'self' https://www.gstatic.com;
+        ">
+    <title>Login - Health App</title>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LfaqWYsAAAAAB6-VarlZVgzz9bj31BLiUe7w6fh"></script>
+    <script src="../recaptcha.js" defer></script>
+</head>
+<body>
+    <div>
+        <table border=1>
+            <tr>
+                <th>Username</th><th>Nombre</th><th>Apellidos</th><th>Rol</th>
+            </tr>
+            <?php
+                foreach ($users as $user){
+                    $username = $user['username'];
+                    $nombre = $user['nombre'];
+                    $apellidos = $user['apellidos'];
+                    $rol = $user['rol'];
+                    echo "<tr><td>$username</td><td>$nombre</td><td>$apellidos</td><td>$rol</td><td><a>Delete User</a></td></tr>";
+                }
+                ?>
+        </table>
+    </div>
+</body>
+</html>
