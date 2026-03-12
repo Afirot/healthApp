@@ -14,6 +14,18 @@ Para más información del proceso de instalación de Docker-Compose y requisito
 HealthApp es una aplicación web desarrolada principalmente en PHP, para mayor comodidad, se ha dockerizado la aplicación y tecnologías necesarias para su correcto funcionamiento.
 La aplicación esta pensada para desplegarse en un entorno Linux actualmente.
 
+## Creacion de fichero .env
+Se devera crear un fichero .env en el directorio src con las siguientes entradas.
+
+```txt
+SECRET_KEY_JWT="a-string-secret-at-least-256-bits-long"
+DB_USERS_PASS="Change_Me"
+DATA_PASS='Change_Me'
+INSERT_USER_PASS="Change_Me"
+MYSQL_ROOT_PASSWORD="Change_Me"
+MYSQL_DATABASE="basededatos"
+```
+
 ## Despliegue de healthApp
 
 Para desplegar el contenedor nos situaremos dentro del directorio src, este contendrá los archivos de configuración para desplegar los contenedores necesarios para el funcionamiento de la aplicación.

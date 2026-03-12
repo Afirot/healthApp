@@ -21,9 +21,8 @@ services:
   mariaDB:
 # Configuracion del segundo servicio (MariaDB)
     image: mariadb
-    environment:
-      MYSQL_ROOT_PASSWORD: Contraseca1234
-      MYSQL_DATABASE: basededatos
+    env_file:
+        - .env
 #    ports:
 #      - 3306:3306
     network_mode: host
