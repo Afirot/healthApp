@@ -1,20 +1,8 @@
 <?php
-    // Validacion RECAPTCHA
-    /*$data = json_decode(file_get_contents("php://input"), true);
-    $token  = $data['token'] ?? '';
-    $secret = "6LfaqWYsAAAAAL860Lgf8v5XHJpVef8rwAb9bYBH";
-    $response = file_get_contents(
-        "https://www.google.com/recaptcha/api/siteverify" .
-        "?secret=$secret&response=$token"
-    );
-    $result = json_decode($response, true);*/
-    /*if ($result["success"] && $result["score"] < 0.5) {
-        header("Location: ../bot.html");
-    } else {*/
         try{
             include '../functions.php';
             //Aqui inicio la conexion, deberiamos buscar una forma de crear esta misma conexion desde un .env por razones de seguridad
-            $conexion = db_conection('127.0.0.1', 'db_users', "wdwBSz4uwFblFQ2C", 'health_app');
+            $conexion = db_conection('127.0.0.1', 'db_users', $_ENV['DB_USERS_PASS'], 'health_app');
             //Esta es la consulta
             $data = json_decode(file_get_contents("php://input"), true);
             $nombre = $data['nombre'] ?? '';
@@ -56,5 +44,4 @@
         } catch (Exception $ex){
             echo json_encode(["error" => "Something whet wrong"]);
         }
-    //}
 ?>

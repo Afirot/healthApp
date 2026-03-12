@@ -1,15 +1,4 @@
 <?php
-    // Validacion RECAPTCHA
-    /*$token = $_POST['token'] ?? '';
-    $secret = "6LfaqWYsAAAAAL860Lgf8v5XHJpVef8rwAb9bYBH";
-    $response = file_get_contents(
-        "https://www.google.com/recaptcha/api/siteverify" .
-        "?secret=$secret&response=$token"
-    );
-    $result = json_decode($response, true);
-    if ($result["success"] && $result["score"] < 0.5) {
-        header("Location: /bot.html");
-    } else {*/
         include 'class.php';
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $usuario = trim($_POST['usuario'] ?? '');
@@ -50,5 +39,4 @@
     
             $registro->comprobarPass();
         }
-    //}
 ?>

@@ -10,7 +10,7 @@ class Paciente
     {
         $this->userid = $sessionid__;
 
-        $conexion = db_conection('127.0.0.1', 'db_users', "wdwBSz4uwFblFQ2C", 'health_app');
+        $conexion = db_conection('127.0.0.1', 'db_users', $_ENV['DB_USERS_PASS'], 'health_app');
 
         $consulta = 'SELECT username, nombre, apellidos, fecha_nacimiento FROM users WHERE userid = :id LIMIT 1';
         $resultado = $conexion->prepare($consulta);
@@ -42,7 +42,7 @@ class Paciente
 
         $fecha = date('Y-m-d');
 
-        $conexion = db_conection('127.0.0.1', 'inserter_user', "UuPZONibjAC0fJgj", 'health_app');
+        $conexion = db_conection('127.0.0.1', 'inserter_user', $_ENV['DATA_PASS'], 'health_app');
 
         $consulta = 'INSERT INTO `datos` (`userid`, `altura`, `peso`, `fecha`) VALUES (:userid, :altura, :peso, :fecha);';
 
@@ -65,7 +65,7 @@ class Paciente
     {
         $fecha = date('Y-m-d');
 
-        $conexion = db_conection('127.0.0.1', 'lector_datos', "pT9g!uJ4mX2s@Qf", 'health_app');
+        $conexion = db_conection('127.0.0.1', 'lector_datos', $_ENV['DATA_PASS'], 'health_app');
 
         $consulta = 'SELECT peso, altura, fecha FROM datos WHERE userid = :userid;';
 
@@ -116,7 +116,7 @@ class registro{
     function insertarUsuario(){
     $dsn = 'mysql:host=127.0.0.1;dbname=health_app';
     $usuario = 'inserter_user';
-    $clave = 'UuPZONibjAC0fJgj';
+    $clave = $_ENV['INSERT_USER_PASS'];
     
     try {
         $conexion = new PDO($dsn,$usuario,$clave);
@@ -151,7 +151,7 @@ class registro{
     function comprobarUsuario(){
         $dsn = "mysql:host=127.0.0.1;dbname=health_app";
         $usuario = "db_users";
-        $clave = "wdwBSz4uwFblFQ2C";
+        $clave = $_ENV['DB_USERS_PASS'];
         
         try {
             $conexion = new PDO($dsn,$usuario,$clave);

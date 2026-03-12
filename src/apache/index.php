@@ -3,7 +3,7 @@ try {
     include 'functions.php';
     include "class.php";
     
-    $conexion = db_conection('127.0.0.1', 'db_users', "wdwBSz4uwFblFQ2C", 'health_app');
+    $conexion = db_conection('127.0.0.1', 'db_users', $_ENV['DB_USERS_PASS'], 'health_app');
     if (isset($_COOKIE['token'])) {
         header('Location: main.php');
         exit;

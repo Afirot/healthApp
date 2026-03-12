@@ -4,7 +4,7 @@ try {
     include '../functions.php';
     include "../class.php";
     
-    $conexion = db_conection('127.0.0.1', 'db_users', "wdwBSz4uwFblFQ2C", 'health_app');
+    $conexion = db_conection('127.0.0.1', 'db_users', $_ENV['DB_USERS_PASS'], 'health_app');
     if (!isset($_COOKIE['jwt'])) {
         header('Location: ../index.php');
         exit;
@@ -24,10 +24,9 @@ try {
 
     
 } catch (Throwable $ex) {
-    /*error_log("Error: " . $ex->getMessage());
+    error_log("Error: " . $ex->getMessage());
     header('Location: error500.php');
-    exit();*/
-    echo $ex->getMessage();
+    exit();
 }
 
 $jwt = $_COOKIE['jwt'];

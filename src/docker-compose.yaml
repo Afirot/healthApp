@@ -8,6 +8,8 @@ services:
 #      - 80:80
 #      - 443:443
     network_mode: host
+    env_file:
+        - .env
     volumes:
       - ./apache:/var/www/html:Z
       - ./fail2ban:/etc/fail2ban:Z
