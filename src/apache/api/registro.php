@@ -10,7 +10,7 @@
     if ($result["success"] && $result["score"] < 0.5) {
         header("Location: /bot.html");
     } else {
-        include 'class.php';
+        include '../class.php';
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $usuario = trim($_POST['usuario'] ?? '');
             $nombre = trim($_POST['nombre'] ?? '');
