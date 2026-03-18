@@ -1,54 +1,45 @@
 <?php
-    // Validacion RECAPTCHA
-    $token = $_POST['token'] ?? '';
-    $secret = "6LfaqWYsAAAAAL860Lgf8v5XHJpVef8rwAb9bYBH";
-    $response = file_get_contents(
-        "https://www.google.com/recaptcha/api/siteverify" .
-        "?secret=$secret&response=$token"
-    );
-    $result = json_decode($response, true);
-    if ($result["success"] && $result["score"] < 0.5) {
-        header("Location: /bot.html");
-    } else {
+    try{
         include '../class.php';
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $usuario = trim($_POST['usuario'] ?? '');
-            $nombre = trim($_POST['nombre'] ?? '');
-            $apellidos = trim($_POST['apellidos'] ?? '');
-            $fechaNacimiento = $_POST['fechaNacimiento'] ?? '';
-            $pass = $_POST['pass'] ?? '';
-            $pass2 = $_POST['pass2'] ?? '';
 
-            if (!preg_match('/^[A-Za-z0-9]{2,32}$/', $usuario)) {
-                throw new Exception("Username invalido");
-                exit;
-            }
+        $data = json_decode(file_get_contents("php://input"), true);
+              
+        $usuario = $data['usuario'] ?? '';
+        $nombre = $data['nombre'] ?? '';
+        $apellidos = $data['apellidos'] ?? '';
+        $fechaNacimiento = $data['fechaNacimiento'] ?? '';
+        $pass = $data['pass'] ?? '';
+        $pass2 = $data['pass2'] ?? '';
 
-            if (!preg_match('/^[A-Za-zÁÉÍÓÚáéíóúÑñ]{2,32}$/', $nombre)) {
-                throw new Exception("Nombre inválido");
-                exit;
-            }
-
-            if (!preg_match('/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,32}$/', $apellidos)) {
-                throw new Exception("Apellido inválido");
-                exit;
-            }
-
-            if (empty($fechaNacimiento) || !preg_match('/^\d{4}-\d{2}-\d{2}$/', $fechaNacimiento)) {
-                throw new Exception("Fecha inválida");
-                exit;
-            }
-
-            if (!preg_match('/^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{15,64}$/', $pass)) {
-                throw new Exception("Contraseña inválida");
-                exit;
-            }
-    
-            $registro = new registro($_POST['usuario'], $_POST['nombre'],
-            $_POST['apellidos'], $_POST['fechaNacimiento'],
-            $_POST['pass'], $_POST['pass2']);
-    
-            $registro->comprobarPass();
+        if (!preg_match('/^[A-Za-z0-9]{2,32}$/', $usuario)) {
+            throw new Exception("Username invalido");
+            exit;
         }
+
+        if (!preg_match('/^[A-Za-zÁÉÍÓÚáéíóúÑñ]{2,32}$/', $nombre)) {
+            throw new Exception("Nombre inválido");
+            exit;
+        }
+
+        if (!preg_match('/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,32}$/', $apellidos)) {
+            throw new Exception("Apellido inválido");
+            exit;
+        }
+
+        if (empty($fechaNacimiento) || !preg_match('/^\d{4}-\d{2}-\d{2}$/', $fechaNacimiento)) {
+            throw new Exception("Fecha inválida");
+            exit;
+        }
+
+        if (!preg_match('/^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{15,64}$/', $pass)) {
+            throw new Exception("Contraseña inválida");
+            exit;
+        }
+    
+        $registro = new registro($usuario, $nombre, $apellidos, $fechaNacimiento, $pass, $pass2);
+   
+        $registro->comprobarPass();
+    }catch (Exception $ex){
+        echo json_encode(["error" => "Something whet wrong"]);
     }
 ?>

@@ -114,7 +114,7 @@ class registro{
         return bin2hex($bytes);
     }
     function insertarUsuario(){
-    $dsn = 'mysql:host=127.0.0.1;dbname=health_app';
+    $dsn = 'mysql:host=127.0.0.1;dbname=healthapp';
     $usuario = 'inserter_user';
     $clave = $_ENV['INSERT_USER_PASS'];
     
@@ -223,6 +223,3 @@ class registro{
         }
     }
 }
-
-
-
