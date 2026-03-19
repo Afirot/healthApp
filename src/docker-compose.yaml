@@ -28,6 +28,7 @@ services:
     network_mode: host
     volumes:
       - ./mariaDB/:/var/lib/mysql:Z
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     container_name: lamp-mariaDB-1
   phpmyadmin:
 # Configuracion de phpmyadmin

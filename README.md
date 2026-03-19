@@ -19,11 +19,10 @@ Se devera crear un fichero .env en el directorio src con las siguientes entradas
 
 ```txt
 SECRET_KEY_JWT="a-string-secret-at-least-256-bits-long"
-DB_USERS_PASS="Change_Me"
-DATA_PASS='Change_Me'
-INSERT_USER_PASS="Change_Me"
-MYSQL_ROOT_PASSWORD="Change_Me"
-MYSQL_DATABASE="basededatos"
+MYSQL_ROOT_PASSWORD="Contraseca1234"
+MYSQL_DATABASE="health_app"
+MYSQL_USER="ha_user"
+MYSQL_PASSWORD="ChangeMe"
 ```
 
 ## Despliegue de healthApp
