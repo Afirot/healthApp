@@ -2,7 +2,7 @@
         try{
             include '../functions.php';
             //Aqui inicio la conexion, deberiamos buscar una forma de crear esta misma conexion desde un .env por razones de seguridad
-            $conexion = db_conection('127.0.0.1', 'db_users', $_ENV['DB_USERS_PASS'], 'health_app');
+            $conexion = db_conection('127.0.0.1', $_ENV['MYSQL_USER'], $_ENV['MYSQL_PASSWORD'], $_ENV['MYSQL_DATABASE']);
             //Esta es la consulta
             $data = json_decode(file_get_contents("php://input"), true);
             $nombre = $data['nombre'] ?? '';

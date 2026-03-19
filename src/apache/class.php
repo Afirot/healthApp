@@ -10,7 +10,7 @@ class Paciente
     {
         $this->userid = $sessionid__;
 
-        $conexion = db_conection('127.0.0.1', 'db_users', $_ENV['DB_USERS_PASS'], 'health_app');
+        $conexion = db_conection('127.0.0.1', $_ENV['MYSQL_USER'], $_ENV['MYSQL_PASSWORD'], $_ENV['MYSQL_DATABASE']);
 
         $consulta = 'SELECT username, nombre, apellidos, fecha_nacimiento FROM users WHERE userid = :id LIMIT 1';
         $resultado = $conexion->prepare($consulta);
@@ -114,9 +114,10 @@ class registro{
         return bin2hex($bytes);
     }
     function insertarUsuario(){
-    $dsn = 'mysql:host=127.0.0.1;dbname=healthapp';
-    $usuario = 'inserter_user';
-    $clave = $_ENV['INSERT_USER_PASS'];
+    $database = $_ENV['MYSQL_DATABASE'];
+    $dsn = "mysql:host=127.0.0.1;dbname=$database";
+    $usuario = $_ENV['MYSQL_USER'];
+    $clave = $_ENV['MYSQL_PASSWORD'];
     
     try {
         $conexion = new PDO($dsn,$usuario,$clave);
@@ -139,7 +140,8 @@ class registro{
 
         $resultado->execute();
 
-        header("Location: index.php?registro=exitoso");
+        $salida=json_encode(["exito" => "El usuario ha sido creado."]);
+        echo $salida;
         exit;
 
         } catch (PDOException $exception){
@@ -149,9 +151,10 @@ class registro{
     }
 
     function comprobarUsuario(){
-        $dsn = "mysql:host=127.0.0.1;dbname=health_app";
-        $usuario = "db_users";
-        $clave = $_ENV['DB_USERS_PASS'];
+        $database = $_ENV['MYSQL_DATABASE'];
+        $dsn = "mysql:host=127.0.0.1;dbname=$database";
+        $usuario = $_ENV['MYSQL_USER'];
+        $clave = $_ENV['MYSQL_PASSWORD'];
         
         try {
             $conexion = new PDO($dsn,$usuario,$clave);
