@@ -5,12 +5,12 @@ try {
     include 'functions.php';
     include "class.php";
     
-    $conexion = db_conection('127.0.0.1', 'db_users', "wdwBSz4uwFblFQ2C", 'health_app');
-    if (!isset($_SESSION['jwt'])) {
+    $conexion = db_conection('127.0.0.1', $_ENV['MYSQL_USER'], $_ENV['MYSQL_PASSWORD'], $_ENV['MYSQL_DATABASE']);
+    if (!isset($_COOKIE['jwt'])) {
         header('Location: index.php');
         exit;
     }
-    $jwt = $_SESSION['jwt'];
+    $jwt = $_COOKIE['jwt'];
     //Aqui vamos a validar el jwt
     $data = jwt_validate($jwt);
 
@@ -18,10 +18,9 @@ try {
     $paciente = new Paciente($userid);
 
 } catch (Throwable $ex) {
-    /*error_log("Error: " . $ex->getMessage());
+    error_log("Error: " . $ex->getMessage());
     header('Location: error500.php');
-    exit();*/
-    echo $ex->getMessage();
+    exit();
 }
 
 $paciente->send_data($_POST['peso'], $_POST['altura']);

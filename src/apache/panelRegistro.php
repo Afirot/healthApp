@@ -1,18 +1,25 @@
-<?php
-?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self';">
+            <meta http-equiv="Content-Security-Policy"
+                  content="
+                    default-src 'self';
+                    script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com;
+                    style-src 'self' 'unsafe-inline' https://www.gstatic.com;
+                    img-src 'self' data: https://www.google.com https://www.gstatic.com;
+                    connect-src 'self' https://www.google.com https://www.gstatic.com;
+                    frame-src https://www.google.com;
+                    font-src 'self' https://www.gstatic.com;
+            ">
         <link rel="stylesheet" href="css/paneles.css">
         <script type="module" src="js/register.js"></script>
         <title></title>
-        <script src="https://www.google.com/recaptcha/api.js?render=6LfaqWYsAAAAAB6-VarlZVgzz9bj31BLiUe7w6fh"></script>
-        <script src="recaptcha.js" defer></script>
+        <!--<script src="https://www.google.com/recaptcha/api.js?render=6LfaqWYsAAAAAB6-VarlZVgzz9bj31BLiUe7w6fh"></script>-->
+        <!--<script src="recaptcha.js" defer></script>-->
     </head>
     <body>
-        <form class="registro" onsubmit="onClick(event)" action="registrarUsuario.php" method="post">
+        <form class="registro" id="registerForm" method="post">
             <h1>Registro</h1>
             <br>
             <label>Usuario</label>
@@ -69,8 +76,9 @@
             </div>
             <br>
             <!-- Input oculto para el token reCAPTCHA -->
-            <input type="hidden" name="token" id="recaptchaToken" />
+            <!--<input type="hidden" name="token" id="recaptchaToken" />-->
             <button type="submit">Registrarse</button>
+            <p id="error" style="color:red;"></p>
         </form>
     </body>
 </html>

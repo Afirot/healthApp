@@ -1,15 +1,14 @@
 <?php
-session_start();
 try {
     include 'functions.php';
     include "class.php";
     
-    $conexion = db_conection('127.0.0.1', 'db_users', "wdwBSz4uwFblFQ2C", 'health_app');
-    if (!isset($_SESSION['jwt'])) {
+    $conexion = db_conection('127.0.0.1', $_ENV['MYSQL_USER'], $_ENV['MYSQL_PASSWORD'], $_ENV['MYSQL_DATABASE']);
+    if (!isset($_COOKIE['jwt'])) {
         header('Location: index.php');
         exit;
     }
-    $jwt = $_SESSION['jwt'];
+    $jwt = $_COOKIE['jwt'];
     //Aqui vamos a validar el jwt
     $data = jwt_validate($jwt);
     
@@ -21,10 +20,9 @@ try {
 
     
 } catch (Throwable $ex) {
-    /*error_log("Error: " . $ex->getMessage());
+    error_log("Error: " . $ex->getMessage());
     header('Location: error500.php');
-    exit();*/
-    echo $ex->getMessage();
+    exit();
 }
 ?>
 <!--Your code-->
@@ -35,8 +33,7 @@ try {
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" 
-      <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self'; img-src 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self'; img-src 'self';">
     <!--<link rel="stylesheet" href="css/styles.css">-->
     <title>Health App</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

@@ -1,55 +1,24 @@
 services:
   apache:
-# Configuracion del primer servicio (Apache + PHP)
-    build: . #Usara el dockerfile que encuentre en la ruta actual para construir el contenedor
-    #image: php:8.3-apache
+    build: . 
     user: $UID:$GID
-#    ports:
-#      - 80:80
-#      - 443:443
     network_mode: host
+    env_file:
+        - .env
     volumes:
       - ./apache:/var/www/html:Z
       - ./fail2ban:/etc/fail2ban:Z
       - ./webConf:/etc/apache2:Z
       - ./waf:/etc/modsecurity:Z
-      #- ./php:/usr/local/etc/php/conf.d
     privileged: true
     container_name: apache-healthapp
   mariaDB:
-# Configuracion del segundo servicio (MariaDB)
     image: mariadb
-    environment:
-      MYSQL_ROOT_PASSWORD: Contraseca1234
-      MYSQL_DATABASE: basededatos
-#    ports:
-#      - 3306:3306
+    env_file:
+        - .env
     network_mode: host
     volumes:
       - ./mariaDB/:/var/lib/mysql:Z
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     container_name: lamp-mariaDB-1
-  phpmyadmin:
-# Configuracion de phpmyadmin
-    image: phpmyadmin
-    environment:
-      PMA_HOST: mariaDB
-    ports:
-      - 8080:80
-    depends_on:
-      - mariaDB
-# Descomentar para poder utilizar el contenedor de desarrollo
-#  vscode:
-#    image: codercom/code-server:latest
-#    container_name: vscode
-#    environment:
-#    - PASSWORD=1A2b3c4d5e
-#    ports:
-#      - 8081:8080
-#    volumes:
-#      - ./apache:/home/coder/apache
-#      - ./waf:/home/coder/waf
-#      - ./webConf:/home/coder/webConf
-#      - vscode-data:/home/coder/.local/share/code-server
-#    restart: unless-stopped
-#volumes:
-#  vscode-data:
+
