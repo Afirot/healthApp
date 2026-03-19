@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = await response.json();
 
             if (data.jwt) {
-                document.cookie = "jwt=" + data.jwt + "; path=/; Secure; SameSite=Strict";
+                document.cookie = "jwt=" + data.jwt + "; path=/; SameSite=Strict";
                 window.location.href = "main.php";
             } else {
                 alert(data.error);
@@ -32,4 +32,4 @@ document.addEventListener("DOMContentLoaded", () => {
             if (errorElement) errorElement.textContent = "Error de conexión";
         }
     });
-});s
+});

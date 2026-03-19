@@ -42,7 +42,7 @@ class Paciente
 
         $fecha = date('Y-m-d');
 
-        $conexion = db_conection('127.0.0.1', 'inserter_user', $_ENV['DATA_PASS'], 'health_app');
+        $conexion = db_conection('127.0.0.1', $_ENV['MYSQL_USER'], $_ENV['MYSQL_PASSWORD'], $_ENV['MYSQL_DATABASE']);
 
         $consulta = 'INSERT INTO `datos` (`userid`, `altura`, `peso`, `fecha`) VALUES (:userid, :altura, :peso, :fecha);';
 
@@ -65,7 +65,7 @@ class Paciente
     {
         $fecha = date('Y-m-d');
 
-        $conexion = db_conection('127.0.0.1', 'lector_datos', $_ENV['DATA_PASS'], 'health_app');
+        $conexion = db_conection('127.0.0.1', $_ENV['MYSQL_USER'], $_ENV['MYSQL_PASSWORD'], $_ENV['MYSQL_DATABASE']);
 
         $consulta = 'SELECT peso, altura, fecha FROM datos WHERE userid = :userid;';
 
