@@ -42,7 +42,7 @@ try {
 <body>
     <div>
         <?php echo $paciente->welcome(); ?>
-        <form method="post" action="insertData.php">
+        <form class="datos" id="insertData" method="post">
             <label>Peso (kg):</label><input type="number" name="peso" />
             <label>Altura (cm):</label><input type="number" name="altura" />
             <input type="submit" />
@@ -51,6 +51,4 @@ try {
     <canvas id="grafica" width="400" height="200"></canvas>
     <script src="js/main.js"></script>
 </body>
-
-
 </html>

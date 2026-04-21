@@ -40,25 +40,30 @@ class Paciente
         
         if (is_int($altura) && is_int($peso) && $altura > 0 && $peso > 0){
 
-        $fecha = date('Y-m-d');
+            $fecha = date('Y-m-d');
 
-        $conexion = db_conection('127.0.0.1', $_ENV['MYSQL_USER'], $_ENV['MYSQL_PASSWORD'], $_ENV['MYSQL_DATABASE']);
+            $conexion = db_conection('127.0.0.1', $_ENV['MYSQL_USER'], $_ENV['MYSQL_PASSWORD'], $_ENV['MYSQL_DATABASE']);
 
-        $consulta = 'INSERT INTO `datos` (`userid`, `altura`, `peso`, `fecha`) VALUES (:userid, :altura, :peso, :fecha);';
+            $consulta = 'INSERT INTO `datos` (`userid`, `altura`, `peso`, `fecha`) VALUES (:userid, :altura, :peso, :fecha);';
 
-        $resultado = $conexion->prepare($consulta);
+            $resultado = $conexion->prepare($consulta);
 
-        $resultado->bindParam(':userid', $this->userid);
-        $resultado->bindParam(':altura', $altura);
-        $resultado->bindParam(':peso', $peso);
-        $resultado->bindParam(':fecha', $fecha);
+            $resultado->bindParam(':userid', $this->userid);
+            $resultado->bindParam(':altura', $altura);
+            $resultado->bindParam(':peso', $peso);
+            $resultado->bindParam(':fecha', $fecha);
 
-        $resultado->execute();
-        $conexion = '';
-        return true;
+            $resultado->execute();
+            $conexion = '';
+
+            return json_encode([
+                "message" => "Ha ido bien"
+            ]);
 
         }else{
-            return false;
+            return json_encode([
+                "message" => "Los datos introducidos son incorrectos"
+            ]);
         }
     }
     public function extract_data()
