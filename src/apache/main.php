@@ -33,24 +33,32 @@ try {
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self'; img-src 'self';">
-    <!--<link rel="stylesheet" href="css/styles.css">-->
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' https://cdn.jsdelivr.net;
+        connect-src 'self' https://cdn.jsdelivr.net;
+        style-src 'self';
+        img-src 'self';
+        ">
     <title>Health App</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="js/insert_data.js"></script>
 </head>
 
 <body>
     <div>
         <?php echo $paciente->welcome(); ?>
-        <form method="post" action="insertData.php">
-            <label>Peso (kg):</label><input type="number" name="peso" />
-            <label>Altura (cm):</label><input type="number" name="altura" />
+        <form class="datos" id="insertData" method="post">
+            <div id="error" style="color:red;"></div>
+            <label>Peso (kg):</label>
+            <input type="number" id="peso" name="peso" />
+
+            <label>Altura (cm):</label>
+            <input type="number" id="altura" name="altura" />
             <input type="submit" />
         </form>
     </div>
     <canvas id="grafica" width="400" height="200"></canvas>
     <script src="js/main.js"></script>
 </body>
-
-
 </html>

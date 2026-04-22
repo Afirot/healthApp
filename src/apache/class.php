@@ -31,20 +31,35 @@ class Paciente
     }
 
     public function send_data($__peso, $__altura){
-        try{
-            $altura = (int)$__altura;
-            $peso = (int)$__peso;
-        }catch(Exception $e){
-            return false;
+
+        if (!is_numeric($__altura) || !is_numeric($__peso)) {
+            return json_encode([
+                "exito" => false,
+                "error" => "Datos no numéricos"
+            ]);
         }
-        
-        if (is_int($altura) && is_int($peso) && $altura > 0 && $peso > 0){
+
+        $altura = (int)$__altura;
+        $peso = (int)$__peso;
+
+        if ($altura <= 0 || $peso <= 0) {
+            return json_encode([
+                "exito" => false,
+                "error" => "Valores inválidos"
+            ]);
+        }
 
         $fecha = date('Y-m-d');
 
-        $conexion = db_conection('127.0.0.1', $_ENV['MYSQL_USER'], $_ENV['MYSQL_PASSWORD'], $_ENV['MYSQL_DATABASE']);
+        $conexion = db_conection(
+            '127.0.0.1',
+            $_ENV['MYSQL_USER'],
+            $_ENV['MYSQL_PASSWORD'],
+            $_ENV['MYSQL_DATABASE']
+        );
 
-        $consulta = 'INSERT INTO `datos` (`userid`, `altura`, `peso`, `fecha`) VALUES (:userid, :altura, :peso, :fecha);';
+        $consulta = 'INSERT INTO `datos` (`userid`, `altura`, `peso`, `fecha`) 
+                    VALUES (:userid, :altura, :peso, :fecha)';
 
         $resultado = $conexion->prepare($consulta);
 
@@ -53,12 +68,16 @@ class Paciente
         $resultado->bindParam(':peso', $peso);
         $resultado->bindParam(':fecha', $fecha);
 
-        $resultado->execute();
-        $conexion = '';
-        return true;
-
-        }else{
-            return false;
+        if ($resultado->execute()) {
+            return json_encode([
+                "exito" => true,
+                "message" => "Ha ido bien"
+            ]);
+        } else {
+            return json_encode([
+                "exito" => false,
+                "error" => "Error en base de datos"
+            ]);
         }
     }
     public function extract_data()

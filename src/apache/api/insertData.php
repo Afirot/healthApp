@@ -2,9 +2,14 @@
 session_start();
 
 try {
-    include 'functions.php';
-    include "class.php";
+    include '../functions.php';
+    include "../class.php";
     
+    $data = json_decode(file_get_contents("php://input"), true);
+              
+    $peso = $data['peso'] ?? '';
+    $altura = $data['altura'] ?? '';
+
     $conexion = db_conection('127.0.0.1', $_ENV['MYSQL_USER'], $_ENV['MYSQL_PASSWORD'], $_ENV['MYSQL_DATABASE']);
     if (!isset($_COOKIE['jwt'])) {
         header('Location: index.php');
@@ -23,10 +28,6 @@ try {
     exit();
 }
 
-$paciente->send_data($_POST['peso'], $_POST['altura']);
+echo $paciente->send_data($peso, $altura);
 
-header('Location: main.php');
-exit();
 ?>
-
-
