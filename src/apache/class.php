@@ -31,38 +31,52 @@ class Paciente
     }
 
     public function send_data($__peso, $__altura){
-        try{
-            $altura = (int)$__altura;
-            $peso = (int)$__peso;
-        }catch(Exception $e){
-            return false;
-        }
-        
-        if (is_int($altura) && is_int($peso) && $altura > 0 && $peso > 0){
 
-            $fecha = date('Y-m-d');
-
-            $conexion = db_conection('127.0.0.1', $_ENV['MYSQL_USER'], $_ENV['MYSQL_PASSWORD'], $_ENV['MYSQL_DATABASE']);
-
-            $consulta = 'INSERT INTO `datos` (`userid`, `altura`, `peso`, `fecha`) VALUES (:userid, :altura, :peso, :fecha);';
-
-            $resultado = $conexion->prepare($consulta);
-
-            $resultado->bindParam(':userid', $this->userid);
-            $resultado->bindParam(':altura', $altura);
-            $resultado->bindParam(':peso', $peso);
-            $resultado->bindParam(':fecha', $fecha);
-
-            $resultado->execute();
-            $conexion = '';
-
+        if (!is_numeric($__altura) || !is_numeric($__peso)) {
             return json_encode([
+                "exito" => false,
+                "error" => "Datos no numéricos"
+            ]);
+        }
+
+        $altura = (int)$__altura;
+        $peso = (int)$__peso;
+
+        if ($altura <= 0 || $peso <= 0) {
+            return json_encode([
+                "exito" => false,
+                "error" => "Valores inválidos"
+            ]);
+        }
+
+        $fecha = date('Y-m-d');
+
+        $conexion = db_conection(
+            '127.0.0.1',
+            $_ENV['MYSQL_USER'],
+            $_ENV['MYSQL_PASSWORD'],
+            $_ENV['MYSQL_DATABASE']
+        );
+
+        $consulta = 'INSERT INTO `datos` (`userid`, `altura`, `peso`, `fecha`) 
+                    VALUES (:userid, :altura, :peso, :fecha)';
+
+        $resultado = $conexion->prepare($consulta);
+
+        $resultado->bindParam(':userid', $this->userid);
+        $resultado->bindParam(':altura', $altura);
+        $resultado->bindParam(':peso', $peso);
+        $resultado->bindParam(':fecha', $fecha);
+
+        if ($resultado->execute()) {
+            return json_encode([
+                "exito" => true,
                 "message" => "Ha ido bien"
             ]);
-
-        }else{
+        } else {
             return json_encode([
-                "message" => "Los datos introducidos son incorrectos"
+                "exito" => false,
+                "error" => "Error en base de datos"
             ]);
         }
     }
